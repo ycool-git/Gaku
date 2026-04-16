@@ -787,6 +787,11 @@ async function runAiScore(){
       resultEl.innerHTML=`⚠️ ${err.message}`;
       console.error('Gemini kanji error:', err);
     }
+    // rate limit対策：1問ごとに13秒待機（5req/min = 12秒間隔）
+    if(i < currentKanji.length - 1){
+      resultEl.innerHTML += ' （次の問題まで待機中…）';
+      await new Promise(r => setTimeout(r, 13000));
+    }
   }
 
   const bar = document.getElementById('aiScoreBar'); bar.style.display='flex';
