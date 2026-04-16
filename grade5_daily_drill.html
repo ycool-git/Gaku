@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小5 毎日ドリル</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700&display=swap');
+:root{
+  --primary:#1a3a5c;--accent:#e8a020;--green:#3a9e6e;--red:#c0392b;
+  --bg:#f0ece4;--card:#fff;--rule:#d0c8bc;--sub:#888;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh;color:#222;}
+
+/* ヘッダー */
+.app-header{background:var(--primary);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3);}
+.app-title{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:1.05rem;flex:1;min-width:100px;}
+.app-header input[type="date"]{padding:6px 8px;border-radius:8px;border:none;font-family:inherit;font-size:.85rem;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;}
+.app-header input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);}
+.ipad-tip{background:rgba(255,255,255,.1);border-radius:8px;padding:6px 12px;font-size:.72rem;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px;width:100%;}
+
+/* ツールバー */
+.toolbar-wrap{background:#edeae4;border-bottom:1px solid var(--rule);padding:8px 16px;}
+.toolbar{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tool-label{font-size:.73rem;color:var(--sub);font-weight:700;flex-shrink:0;}
+.tool-btn{padding:6px 14px;border-radius:20px;border:2px solid var(--rule);font-family:inherit;font-weight:700;font-size:.8rem;cursor:pointer;background:#fff;color:#555;transition:all .15s;flex-shrink:0;}
+.tool-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.tool-btn.eraser-active{background:#7b5c3a;color:#fff;border-color:#7b5c3a;}
+.color-palette{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.color-swatch{width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:all .15s;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.color-swatch.active{border-color:#333;transform:scale(1.2);}
+.color-swatch.c-navy{background:#1a3a5c;}.color-swatch.c-red{background:#d32f2f;}.color-swatch.c-blue{background:#1565c0;}
+.size-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.size-wrap input[type="range"]{width:72px;accent-color:var(--primary);}
+.size-dot{background:var(--primary);border-radius:50%;display:inline-block;transition:all .1s;vertical-align:middle;}
+.pencil-status{font-size:.7rem;color:var(--sub);background:#fff;border-radius:12px;padding:3px 10px;border:1px solid var(--rule);flex-shrink:0;margin-left:auto;}
+
+/* ボタン */
+.btn{padding:7px 14px;border-radius:10px;border:none;font-family:inherit;font-weight:700;font-size:.82rem;cursor:pointer;transition:transform .1s;white-space:nowrap;}
+.btn:active{transform:scale(.95);}
+.btn-gen{background:var(--accent);color:var(--primary);}
+.btn-ans{background:var(--green);color:#fff;}
+.btn-ai{background:#1a73e8;color:#fff;}
+
+/* ===== スクロールボタン（画面左右端に固定） ===== */
+.scroll-up-btn,.scroll-dn-btn{
+  position:fixed;right:0;z-index:300;
+  width:52px;height:80px;
+  background:var(--primary);color:#fff;border:none;
+  font-size:1.5rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:-2px 0 8px rgba(0,0,0,.2);
+  border-radius:12px 0 0 12px;
+  opacity:.88;
+  user-select:none;-webkit-user-select:none;
+}
+.scroll-up-btn{top:calc(50% - 90px);}
+.scroll-dn-btn{top:calc(50% + 10px);}
+.scroll-up-btn:active,.scroll-dn-btn:active{opacity:1;background:#2a5a8c;}
+
+/* タブ */
+.tabs{display:flex;max-width:860px;margin:14px auto 0;padding:0 16px;gap:8px;}
+.tab{flex:1;padding:11px;border-radius:12px 12px 0 0;border:none;font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;background:rgba(255,255,255,.4);color:var(--sub);transition:background .2s,color .2s;}
+.tab.active{background:var(--card);color:var(--primary);}
+
+/* コンテンツ */
+.content{max-width:860px;margin:0 auto;padding:0 16px 80px;}
+.panel{display:none;}.panel.active{display:block;}
+.card{background:var(--card);border-radius:0 0 16px 16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:14px;}
+.sec-label{font-size:.72rem;font-weight:700;color:#fff;background:var(--primary);display:inline-block;padding:3px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.05em;}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.88em;line-height:1.15;margin:0 2px;}
+.frac-n{border-bottom:1.5px solid currentColor;padding:0 4px 1px;}.frac-d{padding:1px 4px 0;}
+
+/* 計算カード */
+.calc-card{border:1.5px solid var(--rule);border-radius:12px;margin-bottom:14px;overflow:hidden;}
+.calc-top{display:flex;align-items:center;gap:10px;padding:12px;background:#fafaf8;border-bottom:1px dashed var(--rule);flex-wrap:wrap;}
+.calc-num-badge{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.calc-question{font-size:1.05rem;display:flex;align-items:center;gap:4px;flex-shrink:0;}
+.equals{color:var(--sub);margin:0 4px;}
+.ans-canvas-wrap{position:relative;flex-shrink:0;}
+.ans-canvas{width:84px;height:84px;border:2.5px solid var(--primary);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
+.ans-clear-btn{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:#bbb;border:none;cursor:pointer;font-size:.65rem;color:#fff;display:flex;align-items:center;justify-content:center;}
+.ans-clear-btn:active{background:var(--red);}
+.calc-answer-reveal{display:none;font-weight:700;color:var(--red);font-size:1rem;flex-shrink:0;}
+body.show-answers .calc-answer-reveal{display:block;}
+.calc-scratch-wrap{position:relative;padding:8px 10px;background:#fff;}
+.scratch-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.scratch-label{font-size:.68rem;color:var(--sub);}
+.scratch-clear-btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:2px 8px;font-size:.68rem;color:var(--sub);cursor:pointer;}
+.scratch-canvas{width:100%;height:130px;border:1px solid #eee;border-radius:6px;background:#fffef8;touch-action:none;cursor:crosshair;display:block;}
+
+/* 結果バー */
+.result-bar{background:var(--primary);color:#fff;border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.result-date{font-size:.8rem;opacity:.75;}
+.cheer-msg{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:.95rem;flex:1;text-align:center;}
+
+/* ===== 漢字 ===== */
+.kanji-list{display:flex;flex-direction:column;gap:20px;}
+.kanji-item{padding:16px;background:#fafaf8;border-radius:12px;border:1.5px solid var(--rule);}
+.kanji-item-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.kanji-num{font-size:.75rem;color:#fff;background:var(--primary);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+.kanji-reading{font-size:1.3rem;font-weight:700;color:var(--primary);letter-spacing:.1em;}
+.kanji-hint{font-size:.78rem;color:var(--sub);margin-left:auto;}
+.kanji-boxes{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px;}
+.kanji-box-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.kanji-canvas{width:120px;height:120px;border:2px solid var(--rule);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
+
+/* ズームボタン */
+.zoom-btn{
+  background:var(--primary);color:#fff;border:none;border-radius:8px;
+  padding:5px 10px;font-size:.75rem;cursor:pointer;margin-top:2px;
+  font-family:inherit;font-weight:700;
+}
+.zoom-btn:active{background:#2a5a8c;}
+
+.kanji-char-label{font-size:.7rem;color:#bbb;}
+.kanji-item-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+
+/* ===== 漢字の正解フォント（明朝・視認性改善）===== */
+.kanji-answer-area{display:none;align-items:center;gap:8px;}
+body.show-answers .kanji-answer-area{display:flex;}
+.kanji-answer-text{
+  font-family:'Noto Serif JP',serif;
+  font-weight:700;
+  font-size:2.2rem;
+  color:var(--red);
+  letter-spacing:8px;
+  line-height:1.2;
+  text-shadow:0 1px 2px rgba(0,0,0,.1);
+}
+
+.erase-all-btn{background:none;border:1px solid var(--rule);border-radius:8px;padding:5px 12px;font-size:.72rem;color:var(--sub);cursor:pointer;margin-left:auto;}
+.erase-all-btn:active{background:#eee;}
+.ai-result{display:none;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:.82rem;font-weight:700;}
+.ai-result.correct{display:flex;background:#e0f4ea;color:var(--green);border:1.5px solid var(--green);}
+.ai-result.incorrect{display:flex;background:#fde8e8;color:var(--red);border:1.5px solid var(--red);}
+.ai-result.checking{display:flex;background:#f0f0f0;color:#666;border:1.5px solid #ccc;}
+
+/* 計算採点バッジ */
+.calc-ai-badge{font-size:.85rem;font-weight:700;padding:3px 10px;border-radius:20px;display:none;flex-shrink:0;}
+.calc-ai-badge.correct{display:inline-block;background:#e0f4ea;color:var(--green);border:1.5px solid var(--green);}
+.calc-ai-badge.incorrect{display:inline-block;background:#fde8e8;color:var(--red);border:1.5px solid var(--red);}
+.calc-ai-badge.checking{display:inline-block;background:#f0f0f0;color:#666;border:1.5px solid #ccc;}
+
+/* AI採点バー */
+.ai-score-bar{background:var(--card);border:2px solid var(--primary);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+.ai-score-title{font-weight:700;color:var(--primary);font-size:.9rem;}
+.ai-score-val{font-family:'Kaisei Decol',serif;font-size:1.5rem;color:var(--primary);}
+.ai-score-val em{color:var(--accent);font-style:normal;}
+
+/* 間違い直し */
+.retry-panel{background:var(--card);border-radius:14px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:14px;border:2px solid var(--accent);}
+.retry-title{font-family:'Kaisei Decol',serif;font-size:1.1rem;color:var(--primary);margin-bottom:4px;}
+.retry-sub{font-size:.78rem;color:var(--sub);margin-bottom:16px;}
+.retry-item{border-bottom:1px solid var(--rule);padding-bottom:16px;margin-bottom:16px;}
+.retry-item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+.retry-reading{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:8px;}
+.retry-round{margin-bottom:12px;}
+.retry-round-label{font-size:.72rem;color:var(--sub);margin-bottom:6px;}
+.retry-boxes{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.retry-erase-btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:3px 10px;font-size:.7rem;color:var(--sub);cursor:pointer;}
+
+/* ===== ズームモーダル ===== */
+.zoom-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);align-items:center;justify-content:center;}
+.zoom-modal.open{display:flex;}
+.zoom-modal-inner{background:#fff;border-radius:16px;padding:20px;max-width:95vw;max-height:95vh;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 8px 40px rgba(0,0,0,.4);}
+.zoom-modal-title{font-size:1rem;font-weight:700;color:var(--primary);}
+.zoom-modal-canvas{border:2px solid var(--rule);border-radius:10px;background:#fff;touch-action:none;cursor:crosshair;}
+.zoom-modal-footer{display:flex;gap:10px;}
+.zoom-close-btn{padding:8px 20px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;font-family:inherit;}
+.zoom-clear-btn{padding:8px 20px;border-radius:10px;border:none;background:#eee;color:#555;font-weight:700;cursor:pointer;font-family:inherit;}
+.zoom-done-btn{padding:8px 20px;border-radius:10px;border:none;background:var(--green);color:#fff;font-weight:700;cursor:pointer;font-family:inherit;}
+
+/* スピナー */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid #ccc;border-top-color:var(--primary);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* 設定モーダル */
+.settings-modal{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);align-items:center;justify-content:center;}
+.settings-modal.open{display:flex;}
+.settings-inner{background:#fff;border-radius:16px;padding:24px;width:min(480px,92vw);box-shadow:0 8px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:16px;}
+.settings-title{font-family:'Kaisei Decol',serif;font-size:1.1rem;color:var(--primary);font-weight:700;}
+.settings-row{display:flex;flex-direction:column;gap:6px;}
+.settings-label{font-size:.82rem;font-weight:700;color:#444;}
+.settings-hint{font-size:.72rem;color:var(--sub);line-height:1.5;}
+.settings-input{padding:10px 12px;border:2px solid var(--rule);border-radius:10px;font-family:inherit;font-size:.9rem;width:100%;outline:none;}
+.settings-input:focus{border-color:var(--primary);}
+.settings-status{font-size:.78rem;padding:4px 10px;border-radius:20px;font-weight:700;}
+.settings-status.ok{color:var(--green);background:#e0f4ea;}
+.settings-status.ng{color:var(--sub);background:#f0ece4;}
+.settings-footer{display:flex;gap:10px;justify-content:flex-end;}
+.btn-settings-save{padding:9px 22px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-weight:700;font-family:inherit;cursor:pointer;font-size:.9rem;}
+.btn-settings-close{padding:9px 22px;border-radius:10px;border:none;background:#eee;color:#555;font-weight:700;font-family:inherit;cursor:pointer;font-size:.9rem;}
+.btn-settings-save:active,.btn-settings-close:active{transform:scale(.97);}
+.btn-cfg{padding:7px 12px;border-radius:10px;border:none;font-family:inherit;font-weight:700;font-size:.82rem;cursor:pointer;background:rgba(255,255,255,.18);color:#fff;transition:background .15s;}
+.btn-cfg:active{background:rgba(255,255,255,.3);}
+</style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="app-header">
+  <div class="app-title">📚 小5 毎日ドリル</div>
+  <input type="date" id="dateInput">
+  <button class="btn btn-gen" onclick="generate()">🎲 新しい問題</button>
+  <button class="btn btn-ans" id="ansBtn" onclick="toggleAnswers()">✅ 答えを見る</button>
+  <button class="btn btn-ai"  id="aiBtn"  onclick="runAiScore()">🤖 AI採点</button>
+  <button class="btn-cfg" onclick="openSettings()">⚙️ 設定</button>
+  <div class="ipad-tip">💡 <b>iPad：</b>AirDrop → Safari → ホーム画面に追加。Pencilサイドボタン＝ペン↔消しゴム。</div>
+</div>
+
+<!-- ツールバー -->
+<div class="toolbar-wrap">
+  <div class="toolbar">
+    <span class="tool-label">ツール：</span>
+    <button class="tool-btn active" id="btnPen"    onclick="setTool('pen')">✏️ ペン</button>
+    <button class="tool-btn"        id="btnEraser" onclick="setTool('eraser')">🧹 消しゴム</button>
+    <span class="tool-label" style="margin-left:4px">色：</span>
+    <div class="color-palette">
+      <div class="color-swatch c-navy active" id="sw-navy" onclick="setColor('#1a3a5c','navy')"></div>
+      <div class="color-swatch c-red"         id="sw-red"  onclick="setColor('#d32f2f','red')"></div>
+      <div class="color-swatch c-blue"        id="sw-blue" onclick="setColor('#1565c0','blue')"></div>
+    </div>
+    <div class="size-wrap" style="margin-left:4px">
+      <span class="tool-label">太さ：</span>
+      <input type="range" id="sizeSlider" min="2" max="18" value="4" oninput="updateSize()">
+      <span class="size-dot" id="sizeDot" style="width:6px;height:6px"></span>
+    </div>
+    <div class="pencil-status" id="pencilStatus">Apple Pencil: 未検出</div>
+  </div>
+</div>
+
+<!-- ===== スクロールボタン（画面右端固定・長押し対応）===== -->
+<button class="scroll-up-btn" id="scrollUpBtn" aria-label="上へスクロール">▲</button>
+<button class="scroll-dn-btn" id="scrollDnBtn" aria-label="下へスクロール">▼</button>
+
+<!-- タブ -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('calc')">🔢 計算（12問）</button>
+  <button class="tab"        onclick="switchTab('kanji')">✍️ 漢字（10問）</button>
+</div>
+
+<div class="content">
+  <div class="panel active" id="panel-calc">
+    <div class="ai-score-bar" id="calcScoreBar" style="display:none">
+      <span class="ai-score-title">🤖 計算 AI採点結果</span>
+      <span class="ai-score-val" id="calcScoreVal">―</span>
+    </div>
+    <div class="card">
+      <div class="sec-label">計算 ― 答え欄に書いて、下の枠で筆算しよう</div>
+      <div id="calcList"></div>
+    </div>
+    <div class="result-bar">
+      <div class="result-date" id="dispDate">―</div>
+      <div class="cheer-msg"   id="cheerMsg">「新しい問題」を押してスタート！</div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-kanji">
+    <div class="ai-score-bar" id="aiScoreBar" style="display:none">
+      <span class="ai-score-title">🤖 AI採点結果</span>
+      <span class="ai-score-val" id="aiScoreVal">―</span>
+      <button class="btn btn-ai" onclick="startRetry()" id="retryBtn" style="display:none">📝 間違い直し</button>
+    </div>
+    <div class="card">
+      <div class="sec-label">漢字 ― マスに指で書こう（🔍でズーム）</div>
+      <div class="kanji-list" id="kanjiList"></div>
+    </div>
+    <div class="retry-panel" id="retryPanel" style="display:none">
+      <div class="retry-title">📝 間違い直し練習</div>
+      <div class="retry-sub">間違えた漢字を3回ずつ練習しよう！</div>
+      <div id="retryList"></div>
+    </div>
+    <div class="result-bar">
+      <div class="cheer-msg" style="font-family:inherit;font-size:.9rem;text-align:left">
+        書いたら「🤖 AI採点」で採点できます
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 設定モーダル ===== -->
+<div class="settings-modal" id="settingsModal">
+  <div class="settings-inner">
+    <div class="settings-title">⚙️ 設定</div>
+    <div class="settings-row">
+      <div class="settings-label">Google Gemini APIキー</div>
+      <div class="settings-hint">
+        取得先：<b>aistudio.google.com</b> → 「Get API key」<br>
+        入力したキーはこのiPad/ブラウザのみに保存されます。<br><br>
+        ⚠️ <b>「Load failed」が出る場合：</b><br>
+        SafariでHTMLファイルをローカルで開いているとCORS制限でAPIが使えません。<br>
+        → <b>ホーム画面に追加したアイコンから開く</b>と制限が緩和されます。<br>
+        → または <b>Chrome for iPad</b> で開いてください。
+      </div>
+      <input type="text" class="settings-input" id="apiKeyInput" placeholder="AIzaSy..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <span class="settings-status ng" id="apiKeyStatus">未設定</span>
+      <button class="btn-settings-save" style="width:fit-content;margin-top:4px;font-size:.8rem;padding:6px 16px" onclick="testApiKey()">🔍 接続テスト</button>
+      <span id="testResult" style="font-size:.75rem;color:var(--sub)"></span>
+    </div>
+    <div class="settings-footer">
+      <button class="btn-settings-close" onclick="closeSettings()">キャンセル</button>
+      <button class="btn-settings-save"  onclick="saveSettings()">💾 保存する</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ズームモーダル ===== -->
+<div class="zoom-modal" id="zoomModal">
+  <div class="zoom-modal-inner">
+    <div class="zoom-modal-title" id="zoomTitle">拡大して書く</div>
+    <canvas class="zoom-modal-canvas" id="zoomCanvas" width="600" height="600"></canvas>
+    <div class="zoom-modal-footer">
+      <button class="zoom-clear-btn" onclick="zoomClear()">🧹 消す</button>
+      <button class="zoom-done-btn"  onclick="zoomDone()">✅ 完了</button>
+      <button class="zoom-close-btn" onclick="zoomClose()">✕ 閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== Google Gemini APIキー =====
+let GEMINI_KEY = '';
+try { GEMINI_KEY = localStorage.getItem('geminiKey') || ''; } catch(e){}
+
+// ===== 設定モーダル =====
+function openSettings() {
+  const input = document.getElementById('apiKeyInput');
+  // パスワード型をやめてtextにしたので値をそのまま表示
+  input.value = GEMINI_KEY || '';
+  document.getElementById('testResult').textContent = '';
+  updateApiStatus();
+  document.getElementById('settingsModal').classList.add('open');
+  // 少し遅らせてフォーカス（iPadキーボード対策）
+  setTimeout(() => input.focus(), 100);
+}
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('open');
+}
+function saveSettings() {
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if (val) {
+    GEMINI_KEY = val;
+    try { localStorage.setItem('geminiKey', GEMINI_KEY); } catch(e){}
+  }
+  updateApiStatus();
+  closeSettings();
+}
+function updateApiStatus() {
+  const el = document.getElementById('apiKeyStatus');
+  if (GEMINI_KEY) {
+    el.className = 'settings-status ok';
+    el.textContent = '✅ 設定済み（末尾: …' + GEMINI_KEY.slice(-4) + '）';
+  } else {
+    el.className = 'settings-status ng';
+    el.textContent = '未設定';
+  }
+}
+
+// APIキー接続テスト（テキストのみ送信）
+async function testApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  const resultEl = document.getElementById('testResult');
+  if (!key) { resultEl.textContent = 'キーを入力してください'; return; }
+  resultEl.textContent = '接続テスト中…';
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents:[{ parts:[{ text:'こんにちは' }] }],
+          generationConfig:{ maxOutputTokens:5 }
+        })
+      }
+    );
+    const data = await res.json();
+    if (data.error) {
+      resultEl.style.color = 'var(--red)';
+      resultEl.textContent = '❌ エラー: ' + (data.error.message || data.error.status);
+    } else {
+      resultEl.style.color = 'var(--green)';
+      resultEl.textContent = '✅ 接続成功！このキーは使えます';
+      // 成功したら自動保存
+      GEMINI_KEY = key;
+      try { localStorage.setItem('geminiKey', GEMINI_KEY); } catch(e){}
+      updateApiStatus();
+    }
+  } catch(e) {
+    resultEl.style.color = 'var(--red)';
+    if (e.name === 'TypeError') {
+      resultEl.textContent = '❌ Load failed: ホーム画面追加アイコンかChromeで開いてください';
+    } else {
+      resultEl.textContent = '❌ ' + e.message;
+    }
+  }
+}
+// モーダル外クリックで閉じる
+document.getElementById('settingsModal').addEventListener('pointerdown', e => {
+  if (e.target === document.getElementById('settingsModal')) closeSettings();
+});
+
+// ===== スクロールボタン（長押しで連続スクロール）=====
+function setupScrollBtn(btnId, dir) {
+  const btn = document.getElementById(btnId);
+  let timer = null;
+  const step = () => window.scrollBy({ top: dir * 120, behavior: 'auto' });
+  const start = (e) => { e.preventDefault(); step(); timer = setInterval(step, 80); };
+  const stop  = ()  => { clearInterval(timer); timer = null; };
+  btn.addEventListener('pointerdown', start, { passive: false });
+  btn.addEventListener('pointerup',   stop);
+  btn.addEventListener('pointerleave',stop);
+  btn.addEventListener('contextmenu', e => e.preventDefault());
+}
+setupScrollBtn('scrollUpBtn', -1);
+setupScrollBtn('scrollDnBtn',  1);
+
+// ===== ツール =====
+let tool='pen', penColor='#1a3a5c', penSize=4, pencilConnected=false;
+function setTool(t){
+  tool=t;
+  document.getElementById('btnPen').className   ='tool-btn'+(t==='pen'?    ' active':'');
+  document.getElementById('btnEraser').className='tool-btn'+(t==='eraser'?' eraser-active':'');
+}
+function setColor(hex,name){
+  penColor=hex; if(tool!=='pen') setTool('pen');
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sw-'+name).classList.add('active');
+  document.getElementById('sizeDot').style.background=hex;
+}
+function updateSize(){
+  penSize=+document.getElementById('sizeSlider').value;
+  const px=Math.max(4,penSize);
+  Object.assign(document.getElementById('sizeDot').style,{width:px+'px',height:px+'px'});
+}
+document.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='pen'){
+    if(!pencilConnected){ pencilConnected=true; const el=document.getElementById('pencilStatus'); el.textContent='🍎 Apple Pencil 接続中'; el.style.color='#3a9e6e'; }
+    if(e.button===1){ e.preventDefault(); setTool(tool==='pen'?'eraser':'pen'); }
+  }
+},{passive:false});
+
+// ===== 乱数 =====
+function seededRand(seed){ let s=seed; return ()=>{ s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/4294967296; }; }
+function getDateSeed(str){ return str.split('-').join('')|0; }
+function ri(min,max,r){ return Math.floor(r()*(max-min+1))+min; }
+function gcd(a,b){ return b===0?a:gcd(b,a%b); }
+function shuffle(arr,r){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+// ===== 計算生成 =====
+function generateCalcProblems(rand){
+  const types=shuffle([0,0,1,1,2,2,3,3,4,4,5,6],rand);
+  const gen=[
+    ()=>{ const a=ri(12,99,rand),b=ri(2,9,rand); return {q:`${a} × ${b}`,a:`${a*b}`}; },
+    ()=>{ const b=ri(2,9,rand),a=b*ri(2,15,rand); return {q:`${a} ÷ ${b}`,a:`${a/b}`}; },
+    ()=>{ const a=+(ri(1,9,rand)+'.'+ri(1,9,rand)),b=+(ri(1,9,rand)+'.'+ri(1,9,rand)); return {q:`${a} ＋ ${b}`,a:`${+((a+b).toFixed(2))}`}; },
+    ()=>{ const b=+(ri(1,8,rand)+'.'+ri(1,9,rand)),big=+(ri((b|0)+1,9,rand)+'.'+ri(0,9,rand)),sm=Math.min(big,b); return {q:`${Math.max(big,b)} － ${sm}`,a:`${+((Math.max(big,b)-sm).toFixed(2))}`}; },
+    ()=>{ const d=ri(3,9,rand),n1=ri(1,d-1,rand),n2=ri(1,d-1,rand),sum=n1+n2,g=gcd(sum,d); return {q:`${n1}/${d} ＋ ${n2}/${d}`,a:sum===d?'1':(g>1?`${sum/g}/${d/g}`:`${sum}/${d}`)}; },
+    ()=>{ const d=ri(3,9,rand),n1=ri(2,d,rand),n2=ri(1,n1-1,rand),diff=n1-n2,g=gcd(diff,d); return {q:`${n1}/${d} － ${n2}/${d}`,a:g>1?`${diff/g}/${d/g}`:`${diff}/${d}`}; },
+    ()=>{ const a=ri(4,20,rand),b=ri(3,15,rand); return {q:`${a}×${b}cm の面積`,a:`${a*b}cm²`}; },
+  ];
+  return Array.from({length:12},(_,i)=>gen[types[i]%gen.length]());
+}
+
+// ===== 漢字DB =====
+const kanjiDB=[
+  {reading:'きのう',hint:'昨日のこと',answer:'昨日'},
+  {reading:'みらい',hint:'まだ来ていない時間',answer:'未来'},
+  {reading:'せいかく',hint:'まちがいがないようす',answer:'正確'},
+  {reading:'ぼうけん',hint:'危険をおかす体験',answer:'冒険'},
+  {reading:'ひつよう',hint:'どうしてもいること',answer:'必要'},
+  {reading:'さんぎょう',hint:'製品をつくる仕事全体',answer:'産業'},
+  {reading:'しゅうかく',hint:'田畑の作物をとり入れること',answer:'収穫'},
+  {reading:'かんきょう',hint:'生き物をとりまく自然や社会',answer:'環境'},
+  {reading:'きょうりょく',hint:'みんなで力をあわせること',answer:'協力'},
+  {reading:'じゆう',hint:'自分の思い通りにできること',answer:'自由'},
+  {reading:'いけん',hint:'あるテーマへの自分の考え',answer:'意見'},
+  {reading:'れきし',hint:'むかしから今までのできごとの記録',answer:'歴史'},
+  {reading:'たいせつ',hint:'とても大事に思うようす',answer:'大切'},
+  {reading:'けいさん',hint:'数や式をとく作業',answer:'計算'},
+  {reading:'しょうらい',hint:'これから先・自分の夢',answer:'将来'},
+  {reading:'ちしき',hint:'勉強や経験で得た情報',answer:'知識'},
+  {reading:'しんけん',hint:'本気で取り組むようす',answer:'真剣'},
+  {reading:'ていねい',hint:'細かいところまで気を配るようす',answer:'丁寧'},
+  {reading:'はっけん',hint:'新しいものを見つけること',answer:'発見'},
+  {reading:'せつめい',hint:'相手にわかるように話すこと',answer:'説明'},
+  {reading:'そうぞう',hint:'新しいものをゼロから作ること',answer:'創造'},
+  {reading:'かんしゃ',hint:'ありがとうという気持ち',answer:'感謝'},
+  {reading:'ちょうせん',hint:'難しいことに立ち向かうこと',answer:'挑戦'},
+  {reading:'ゆうかん',hint:'こわいことにも負けないようす',answer:'勇敢'},
+  {reading:'せいちょう',hint:'体や心が大きくなること',answer:'成長'},
+];
+const cheers=['今日もよくがんばった！🌟','毎日続けるキミはすごい！✨','コツコツが力になる！💪','昨日よりひとつ賢くなった！📖','あきらめないキミが最強！🔥','やればできる！その調子！⭐'];
+function fracHtml(s){ return String(s).replace(/(\d+)\/(\d+)/g,(_,n,d)=>`<span class="frac"><span class="frac-n">${n}</span><span class="frac-d">${d}</span></span>`); }
+
+// ===== タブ =====
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['calc','kanji'][i]===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===`panel-${name}`));
+}
+
+// ===== 答え =====
+let answersOn=false;
+function toggleAnswers(){
+  answersOn=!answersOn;
+  document.body.classList.toggle('show-answers',answersOn);
+  document.getElementById('ansBtn').textContent=answersOn?'🙈 答えを隠す':'✅ 答えを見る';
+}
+
+// ===== キャンバス共通 =====
+function drawGuides(canvas){
+  const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+  ctx.save(); ctx.strokeStyle='#ddd'; ctx.lineWidth=Math.max(1,w/144); ctx.setLineDash([6,6]);
+  ctx.beginPath();ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+  ctx.setLineDash([]);ctx.restore();
+}
+function setupCanvas(canvas,opts){
+  const ctx=canvas.getContext('2d'); ctx.lineCap='round'; ctx.lineJoin='round';
+  if(opts&&opts.guides) drawGuides(canvas);
+  canvas.style.touchAction='none';
+  let drawing=false,last=null;
+  function getPos(e){ const r=canvas.getBoundingClientRect(); return {x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)}; }
+  function onDown(e){ if(e.isPrimary===false) return; e.preventDefault(); e.stopPropagation(); canvas.setPointerCapture(e.pointerId); drawing=true; last=getPos(e); }
+  function onMove(e){
+    if(!drawing||e.isPrimary===false) return; e.preventDefault(); e.stopPropagation();
+    const p=getPos(e); ctx.save();
+    if(tool==='eraser'){ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='rgba(0,0,0,1)';ctx.lineWidth=penSize*4;}
+    else{ctx.globalCompositeOperation='source-over';ctx.strokeStyle=penColor;ctx.lineWidth=penSize*((e.pressure>0)?e.pressure+0.5:1);}
+    ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.restore();
+    if(opts&&opts.guides&&tool==='eraser') drawGuides(canvas);
+    last=p;
+  }
+  function onUp(e){ e.preventDefault(); drawing=false; last=null; }
+  canvas.addEventListener('pointerdown',onDown,{passive:false});
+  canvas.addEventListener('pointermove',onMove,{passive:false});
+  canvas.addEventListener('pointerup',onUp,{passive:false});
+  canvas.addEventListener('pointercancel',onUp,{passive:false});
+  canvas.addEventListener('touchstart',e=>{ if(e.touches.length===1) e.preventDefault(); },{passive:false});
+  canvas.addEventListener('touchmove', e=>{ if(e.touches.length===1) e.preventDefault(); },{passive:false});
+}
+function clearCanvas(c,guides){ c.getContext('2d').clearRect(0,0,c.width,c.height); if(guides) drawGuides(c); }
+function canvasToJpeg(canvas){
+  const t=document.createElement('canvas'); t.width=canvas.width; t.height=canvas.height;
+  const ctx=t.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,t.width,t.height); ctx.drawImage(canvas,0,0);
+  return t.toDataURL('image/jpeg',.85).split(',')[1];
+}
+
+// ===== ズームモーダル =====
+let zoomSrcCanvas=null, zoomGuides=false;
+
+function openZoom(srcCanvas, labelText, hasGuides){
+  zoomSrcCanvas=srcCanvas; zoomGuides=hasGuides;
+  const modal=document.getElementById('zoomModal');
+  const zc=document.getElementById('zoomCanvas');
+  document.getElementById('zoomTitle').textContent=`🔍 ${labelText}（拡大）`;
+  // サイズ調整（画面幅に合わせる）
+  const sz=Math.min(window.innerWidth-40,window.innerHeight-160,600);
+  zc.width=sz; zc.height=sz;
+  zc.style.width=sz+'px'; zc.style.height=sz+'px';
+  // 元キャンバスの内容をコピー
+  const ctx=zc.getContext('2d');
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,sz,sz);
+  ctx.drawImage(srcCanvas,0,0,sz,sz);
+  if(hasGuides) drawGuides(zc);
+  modal.classList.add('open');
+  // ズームキャンバスのセットアップ（描画後に元にも反映）
+  setupCanvas(zc,{guides:hasGuides});
+}
+function zoomDone(){
+  if(zoomSrcCanvas){
+    // ズームの内容を元キャンバスに書き戻す
+    const ctx=zoomSrcCanvas.getContext('2d');
+    ctx.clearRect(0,0,zoomSrcCanvas.width,zoomSrcCanvas.height);
+    ctx.drawImage(document.getElementById('zoomCanvas'),0,0,zoomSrcCanvas.width,zoomSrcCanvas.height);
+    if(zoomGuides) drawGuides(zoomSrcCanvas);
+  }
+  zoomClose();
+}
+function zoomClear(){
+  clearCanvas(document.getElementById('zoomCanvas'),zoomGuides);
+}
+function zoomClose(){
+  document.getElementById('zoomModal').classList.remove('open');
+  zoomSrcCanvas=null;
+}
+// モーダル外クリックで閉じる
+document.getElementById('zoomModal').addEventListener('pointerdown',e=>{
+  if(e.target===document.getElementById('zoomModal')) zoomClose();
+});
+
+// ===== 計算レンダリング =====
+let currentCalc = [];
+
+function renderCalc(problems){
+  currentCalc = problems;
+  const list=document.getElementById('calcList'); list.innerHTML='';
+  problems.forEach((p,i)=>{
+    const card=document.createElement('div'); card.className='calc-card';
+    card.innerHTML=`
+      <div class="calc-top">
+        <div class="calc-num-badge">${i+1}</div>
+        <div class="calc-question">${fracHtml(p.q)}<span class="equals">＝</span></div>
+        <div class="ans-canvas-wrap">
+          <canvas class="ans-canvas" width="168" height="168"></canvas>
+          <button class="ans-clear-btn">✕</button>
+        </div>
+        <div class="calc-answer-reveal">${fracHtml(p.a)}</div>
+        <span class="calc-ai-badge" id="cab-${i}"></span>
+      </div>
+      <div class="calc-scratch-wrap">
+        <div class="scratch-header"><span class="scratch-label">📝 筆算スペース</span><button class="scratch-clear-btn">消す</button></div>
+        <canvas class="scratch-canvas" width="800" height="260"></canvas>
+      </div>`;
+    list.appendChild(card);
+    const ac=card.querySelector('.ans-canvas'),sc=card.querySelector('.scratch-canvas');
+    setupCanvas(ac); setupCanvas(sc);
+    card.querySelector('.ans-clear-btn').onclick=()=>clearCanvas(ac,false);
+    card.querySelector('.scratch-clear-btn').onclick=()=>clearCanvas(sc,false);
+  });
+}
+
+// ===== 漢字レンダリング =====
+let currentKanji=[], wrongIndices=[];
+
+function renderKanji(picked){
+  currentKanji=picked; wrongIndices=[];
+  const list=document.getElementById('kanjiList'); list.innerHTML='';
+  picked.forEach((k,i)=>{
+    const chars=[...k.answer];
+    const item=document.createElement('div'); item.className='kanji-item';
+    item.innerHTML=`
+      <div class="kanji-item-header">
+        <div class="kanji-num">${i+1}</div>
+        <div class="kanji-reading">${k.reading}</div>
+        <div class="kanji-hint">${k.hint}</div>
+      </div>
+      <div class="kanji-boxes"></div>
+      <div class="kanji-item-footer">
+        <div class="kanji-answer-area">
+          <span style="font-size:.82rem;color:var(--sub);margin-right:4px">正解：</span>
+          <div class="kanji-answer-text">${k.answer}</div>
+        </div>
+        <div class="ai-result" id="air-${i}"></div>
+        <button class="erase-all-btn">全消し</button>
+      </div>`;
+    list.appendChild(item);
+
+    const boxesEl=item.querySelector('.kanji-boxes');
+    chars.forEach((_,ci)=>{
+      const wrap=document.createElement('div'); wrap.className='kanji-box-wrap';
+      const canvas=document.createElement('canvas'); canvas.className='kanji-canvas'; canvas.width=240; canvas.height=240;
+      const lbl=document.createElement('div'); lbl.className='kanji-char-label'; lbl.textContent=`${ci+1}文字目`;
+      const zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
+      zBtn.onclick=()=>openZoom(canvas,`${k.reading}（${ci+1}文字目）`,true);
+      wrap.appendChild(canvas); wrap.appendChild(lbl); wrap.appendChild(zBtn);
+      boxesEl.appendChild(wrap);
+      setupCanvas(canvas,{guides:true});
+    });
+
+    item.querySelector('.erase-all-btn').onclick=()=>
+      item.querySelectorAll('.kanji-canvas').forEach(c=>clearCanvas(c,true));
+  });
+}
+
+// ===== Gemini API共通呼び出し =====
+// 試すモデルリスト（順番に試してダメなら次へ）
+const GEMINI_MODELS = [
+  'gemini-1.5-flash-001',
+  'gemini-1.5-flash-002',
+  'gemini-1.5-pro-001',
+];
+
+async function callGemini(b64png, prompt){
+  let lastErr = null;
+  for(const model of GEMINI_MODELS){
+    try{
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents:[{ parts:[
+              { inline_data:{ mime_type:'image/png', data:b64png } },
+              { text: prompt }
+            ]}],
+            generationConfig:{ maxOutputTokens:10, temperature:0 }
+          })
+        }
+      );
+      const data = await res.json();
+      if(data.error){
+        // このモデルがダメなら次を試す
+        lastErr = new Error(`[${model}] ${data.error.message || data.error.status}`);
+        continue;
+      }
+      const txt = ((data.candidates||[])[0]?.content?.parts||[])[0]?.text || '';
+      if(!txt){
+        lastErr = new Error(`[${model}] レスポンスが空`);
+        continue;
+      }
+      return txt; // 成功
+    }catch(e){
+      lastErr = new Error(`[${model}] ${e.message}`);
+      // fetchエラー（CORSなど）は次モデルを試しても同じなので即終了
+      if(e.name === 'TypeError') throw lastErr;
+    }
+  }
+  throw lastErr || new Error('全モデル失敗');
+}
+
+// キャンバスをPNG base64に変換（白背景合成）
+function toBase64PNG(canvas){
+  const tmp = document.createElement('canvas');
+  tmp.width = canvas.width; tmp.height = canvas.height;
+  const ctx = tmp.getContext('2d');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0,0,tmp.width,tmp.height);
+  ctx.drawImage(canvas,0,0);
+  return tmp.toDataURL('image/png').split(',')[1];
+}
+
+// ===== AI採点（計算 + 漢字）=====
+async function runAiScore(){
+  if(!GEMINI_KEY){ openSettings(); return; }
+
+  const btn = document.getElementById('aiBtn');
+  btn.disabled = true; btn.textContent = '採点中…';
+
+  // ── 計算採点 ──
+  switchTab('calc');
+  const calcCards = document.querySelectorAll('#calcList .calc-card');
+  let calcCorrect = 0;
+
+  for(let i = 0; i < currentCalc.length; i++){
+    const p = currentCalc[i];
+    const badge = document.getElementById(`cab-${i}`);
+    badge.className = 'calc-ai-badge checking'; badge.textContent = '採点中…';
+
+    const ansCanvas = calcCards[i].querySelector('.ans-canvas');
+    const b64 = toBase64PNG(ansCanvas);
+    const prompt = `この画像は小学5年生が手書きした計算の答えです。問題は「${p.q}」で正解は「${p.a}」です。画像に書かれた数字や文字が正解と一致しているか判定してください。「正解」または「不正解」の一言だけ答えてください。`;
+
+    try{
+      const txt = await callGemini(b64, prompt);
+      const ok = txt.includes('正解') && !txt.includes('不正解');
+      if(ok){ calcCorrect++; badge.className='calc-ai-badge correct'; badge.textContent='✅ 正解'; }
+      else  { badge.className='calc-ai-badge incorrect'; badge.textContent=`❌ 正解:${p.a}`; }
+    }catch(err){
+      badge.className='calc-ai-badge incorrect'; badge.textContent=`⚠️ ${err.message}`;
+    }
+  }
+
+  const calcBar = document.getElementById('calcScoreBar'); calcBar.style.display='flex';
+  document.getElementById('calcScoreVal').innerHTML=`<em>${calcCorrect}</em> / ${currentCalc.length} 問正解`;
+
+  // ── 漢字採点 ──
+  switchTab('kanji');
+  wrongIndices = [];
+  const kanjiItems = document.querySelectorAll('#kanjiList .kanji-item');
+  let kanjiCorrect = 0;
+
+  for(let i = 0; i < currentKanji.length; i++){
+    const k = currentKanji[i];
+    const resultEl = document.getElementById(`air-${i}`);
+    resultEl.className='ai-result checking';
+    resultEl.innerHTML=`<span class="spinner"></span> 採点中…`;
+
+    // 各文字キャンバスを横に並べて1枚のPNGに合成
+    const canvases = [...kanjiItems[i].querySelectorAll('.kanji-canvas')];
+    const CELL = 240;
+    const merged = document.createElement('canvas');
+    merged.width = CELL * canvases.length; merged.height = CELL;
+    const mctx = merged.getContext('2d');
+    mctx.fillStyle = '#fff'; mctx.fillRect(0,0,merged.width,merged.height);
+    canvases.forEach((c,ci) => mctx.drawImage(c,ci*CELL,0));
+    const b64 = toBase64PNG(merged);
+    const prompt = `この画像は小学5年生が「${k.reading}」という読みに対して漢字を手書きしたものです。正解は「${k.answer}」（${[...k.answer].length}文字）です。画像に書かれた手書き文字が正解と一致しているか判定してください。「正解」または「不正解」の一言だけ答えてください。`;
+
+    try{
+      const txt = await callGemini(b64, prompt);
+      const ok = txt.includes('正解') && !txt.includes('不正解');
+      if(ok){ kanjiCorrect++; resultEl.className='ai-result correct'; resultEl.innerHTML='✅ 正解！'; }
+      else  { wrongIndices.push(i); resultEl.className='ai-result incorrect'; resultEl.innerHTML=`❌ 不正解（正解：${k.answer}）`; }
+    }catch(err){
+      resultEl.className='ai-result incorrect';
+      resultEl.innerHTML=`⚠️ ${err.message}`;
+      console.error('Gemini kanji error:', err);
+    }
+  }
+
+  const bar = document.getElementById('aiScoreBar'); bar.style.display='flex';
+  document.getElementById('aiScoreVal').innerHTML=`<em>${kanjiCorrect}</em> / ${currentKanji.length} 問正解`;
+  btn.disabled=false; btn.textContent='🤖 AI採点';
+  if(wrongIndices.length>0){ document.getElementById('retryBtn').style.display=''; }
+}
+
+// ===== 間違い直し =====
+function startRetry(){
+  const panel=document.getElementById('retryPanel'); panel.style.display='';
+  const list=document.getElementById('retryList'); list.innerHTML='';
+  panel.scrollIntoView({behavior:'smooth'});
+
+  wrongIndices.forEach(idx=>{
+    const k=currentKanji[idx];
+    const chars=[...k.answer];
+    const item=document.createElement('div'); item.className='retry-item';
+    item.innerHTML=`<div class="retry-reading">「${k.reading}」→ 正解：${k.answer}</div>`;
+
+    for(let r=0;r<3;r++){
+      const rd=document.createElement('div'); rd.className='retry-round';
+      rd.innerHTML=`<div class="retry-round-label">${r+1}回目</div><div class="retry-boxes"></div><button class="retry-erase-btn">消す</button>`;
+      const boxes=rd.querySelector('.retry-boxes');
+      const canvases=[];
+      chars.forEach((_,ci)=>{
+        const wrap=document.createElement('div'); wrap.className='kanji-box-wrap';
+        const c=document.createElement('canvas'); c.className='kanji-canvas'; c.width=240; c.height=240;
+        const lbl=document.createElement('div'); lbl.className='kanji-char-label'; lbl.textContent=`${ci+1}文字目`;
+        const zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
+        zBtn.onclick=()=>openZoom(c,`${k.reading} ${r+1}回目`,true);
+        wrap.appendChild(c); wrap.appendChild(lbl); wrap.appendChild(zBtn);
+        boxes.appendChild(wrap);
+        setupCanvas(c,{guides:true});
+        canvases.push(c);
+      });
+      rd.querySelector('.retry-erase-btn').onclick=()=>canvases.forEach(c=>clearCanvas(c,true));
+      item.appendChild(rd);
+    }
+    list.appendChild(item);
+  });
+}
+
+// ===== 生成 =====
+function generate(){
+  const dateStr=document.getElementById('dateInput').value||today();
+  document.getElementById('dateInput').value=dateStr;
+  const [y,m,d]=dateStr.split('-');
+  document.getElementById('dispDate').textContent=`${y}年${m}月${d}日`;
+  const rand=seededRand(getDateSeed(dateStr));
+  renderCalc(generateCalcProblems(rand));
+  renderKanji(shuffle([...kanjiDB],rand).slice(0,10));
+  document.getElementById('cheerMsg').textContent=cheers[Math.floor(rand()*cheers.length)];
+  answersOn=false;
+  document.body.classList.remove('show-answers');
+  document.getElementById('ansBtn').textContent='✅ 答えを見る';
+  document.getElementById('aiScoreBar').style.display='none';
+  document.getElementById('calcScoreBar').style.display='none';
+  document.getElementById('retryPanel').style.display='none';
+  document.getElementById('retryBtn').style.display='none';
+  setTool('pen'); setColor('#1a3a5c','navy');
+}
+function today(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+
+updateSize();
+document.getElementById('dateInput').value=today();
+generate();
+</script>
+</body>
+</html>
