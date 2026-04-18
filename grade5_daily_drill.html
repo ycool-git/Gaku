@@ -6,18 +6,17 @@
 <title>小5 毎日ドリル</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700&display=swap');
-:root{
-  --primary:#1a3a5c;--accent:#e8a020;--green:#3a9e6e;--red:#c0392b;
-  --bg:#f0ece4;--card:#fff;--rule:#d0c8bc;--sub:#777;
-}
+:root{--primary:#1a3a5c;--accent:#e8a020;--green:#3a9e6e;--red:#c0392b;--bg:#f0ece4;--card:#fff;--rule:#d0c8bc;--sub:#777;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh;color:#222;}
 
 /* ヘッダー */
-.app-header{background:var(--primary);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3);}
-.app-title{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:1.1rem;flex:1;min-width:120px;}
-.app-header input[type="date"]{padding:6px 8px;border-radius:8px;border:none;font-family:inherit;font-size:.85rem;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;}
+.app-header{background:var(--primary);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3);}
+.app-title{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:1.1rem;flex:1;min-width:80px;}
+.app-header input[type="date"]{padding:6px 8px;border-radius:8px;border:none;font-family:inherit;font-size:.82rem;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;}
 .app-header input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);}
+.hdr-btn{padding:7px 14px;border-radius:10px;border:2px solid rgba(255,255,255,.35);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;white-space:nowrap;}
+.hdr-btn.off{opacity:.5;}
 
 /* ツールバー */
 .toolbar-wrap{background:#edeae4;border-bottom:1px solid var(--rule);padding:8px 16px;}
@@ -30,15 +29,12 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh
 .color-swatch{width:32px;height:32px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:all .15s;box-shadow:0 1px 4px rgba(0,0,0,.25);}
 .color-swatch.active{border-color:#333;transform:scale(1.2);}
 .color-swatch.c-navy{background:#1a3a5c;}.color-swatch.c-red{background:#d32f2f;}.color-swatch.c-blue{background:#1565c0;}
-
-/* ⑥ペンの太さ3段階ボタン */
 .size-btns{display:flex;align-items:center;gap:6px;}
 .size-btn{width:36px;height:36px;border-radius:50%;border:2px solid var(--rule);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .size-btn.active{border-color:var(--primary);background:#e8f0fc;}
-.size-dot-s{width:5px;height:5px;border-radius:50%;background:#333;display:block;}
-.size-dot-m{width:9px;height:9px;border-radius:50%;background:#333;display:block;}
-.size-dot-l{width:14px;height:14px;border-radius:50%;background:#333;display:block;}
-
+.sd-s{width:5px;height:5px;border-radius:50%;background:#333;display:block;}
+.sd-m{width:9px;height:9px;border-radius:50%;background:#333;display:block;}
+.sd-l{width:14px;height:14px;border-radius:50%;background:#333;display:block;}
 .pencil-status{font-size:.72rem;color:var(--sub);background:#fff;border-radius:12px;padding:4px 12px;border:1px solid var(--rule);margin-left:auto;}
 
 /* ボタン */
@@ -47,13 +43,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh
 .btn-gen{background:var(--accent);color:var(--primary);}
 .btn-ans{background:var(--green);color:#fff;}
 .btn-review{background:var(--accent);color:var(--primary);}
-.btn-end-review{background:var(--primary);color:#fff;}
-
-/* スクロールボタン */
-.scroll-up-btn,.scroll-dn-btn{position:fixed;right:0;z-index:300;width:52px;height:80px;background:var(--primary);color:#fff;border:none;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:-2px 0 8px rgba(0,0,0,.2);border-radius:12px 0 0 12px;opacity:.88;user-select:none;}
-.scroll-up-btn{top:calc(50% - 90px);}
-.scroll-dn-btn{top:calc(50% + 10px);}
-.scroll-up-btn:active,.scroll-dn-btn:active{opacity:1;}
+.btn-end{background:var(--primary);color:#fff;}
 
 /* タブ */
 .tabs{display:flex;max-width:900px;margin:14px auto 0;padding:0 16px;gap:8px;}
@@ -70,134 +60,104 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh
 
 /* 結果バー */
 .result-bar{background:var(--primary);color:#fff;border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
-.result-date{font-size:.82rem;opacity:.75;}
 .cheer-msg{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:1rem;flex:1;text-align:center;}
 .score-disp{font-family:'Kaisei Decol',serif;font-size:1.4rem;}
 .score-disp em{color:var(--accent);font-style:normal;}
 
 /* ○× */
-.self-score{display:flex;gap:8px;}
 .sc-o,.sc-x{width:48px;height:48px;border-radius:50%;border:3px solid var(--rule);font-size:1.3rem;font-weight:700;cursor:pointer;background:#f5f5f5;color:#ccc;display:flex;align-items:center;justify-content:center;transition:all .18s;user-select:none;flex-shrink:0;}
 .sc-o.on{background:#e0f4ea;color:var(--green);border-color:var(--green);transform:scale(1.1);}
 .sc-x.on{background:#fde8e8;color:var(--red);border-color:var(--red);transform:scale(1.1);}
 
-/* ⑧計算カード：2列グリッド */
+/* ===== 計算 2列グリッド ===== */
 .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-@media(max-width:600px){.calc-grid{grid-template-columns:1fr;}}
-
 .calc-card{border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
-.calc-top{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fafaf8;border-bottom:1px dashed var(--rule);flex-wrap:wrap;position:relative;}
+.calc-top{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fafaf8;border-bottom:1px dashed var(--rule);flex-wrap:nowrap;}
 .calc-num-badge{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .calc-question{font-size:1rem;display:flex;align-items:center;gap:4px;flex-shrink:0;}
 .equals{color:var(--sub);margin:0 3px;}
-.ans-canvas-wrap{position:relative;flex-shrink:0;}
-.ans-canvas{width:80px;height:80px;border:2.5px solid var(--primary);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
-.ans-clear-btn{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:#bbb;border:none;cursor:pointer;font-size:.65rem;color:#fff;display:flex;align-items:center;justify-content:center;}
+.ans-canvas-wrap{position:relative;flex:0 0 110px;}
+.ans-canvas{width:110px;height:56px;border:2.5px solid var(--primary);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
+.ans-clear-btn{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:#bbb;border:none;cursor:pointer;font-size:.65rem;color:#fff;display:flex;align-items:center;justify-content:center;z-index:1;}
 .ans-clear-btn:active{background:var(--red);}
-.calc-answer-reveal{display:none;font-weight:700;color:var(--red);font-size:.95rem;flex-shrink:0;}
+.calc-answer-reveal{display:none;font-weight:700;color:var(--red);font-size:.95rem;flex-shrink:0;white-space:nowrap;}
 body.show-answers .calc-answer-reveal{display:block;}
-
-/* ③右上に○× */
-.calc-score-wrap{position:absolute;top:8px;right:8px;display:flex;gap:6px;}
-
-/* 筆算エリア：縦に広く */
+.calc-score-row{display:none;align-items:center;justify-content:flex-end;gap:8px;padding:6px 12px;background:#fafaf8;border-bottom:1px dashed var(--rule);}
+body.show-answers .calc-score-row{display:flex;}
 .calc-scratch-wrap{padding:8px 10px;background:#fff;flex:1;}
-.scratch-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
-.scratch-label{font-size:.68rem;color:var(--sub);}
-.scratch-clear-btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:3px 8px;font-size:.68rem;color:var(--sub);cursor:pointer;}
+.scratch-label{font-size:.68rem;color:var(--sub);margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
+.scratch-clear-btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:2px 8px;font-size:.68rem;color:var(--sub);cursor:pointer;}
 .scratch-canvas{width:100%;height:200px;border:1px solid #eee;border-radius:6px;background:#fffef8;touch-action:none;cursor:crosshair;display:block;}
 
 /* ===== 漢字 ===== */
 .kanji-list{display:flex;flex-direction:column;gap:18px;}
-
-/* ③右上に○× */
-.kanji-item{padding:16px;background:#fafaf8;border-radius:14px;border:2px solid var(--rule);position:relative;}
-.kanji-score-wrap{position:absolute;top:12px;right:12px;display:flex;gap:6px;}
-
-.kanji-num-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-right:120px;}
+.kanji-item{padding:16px;background:#fafaf8;border-radius:14px;border:2px solid var(--rule);}
+.kanji-score-wrap{display:none;gap:6px;justify-content:flex-end;margin-bottom:8px;}
+body.show-answers .kanji-score-wrap{display:flex;}
+.kanji-num-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .kanji-num{font-size:.82rem;color:#fff;background:var(--primary);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
-
-/* ヒント */
 .kanji-hint{font-size:.95rem;color:#555;background:#fff3d4;border:1.5px solid var(--accent);border-radius:10px;padding:5px 12px;font-weight:500;display:inline-block;}
-
-/* ② 例文テキスト形式（マスなし） */
-.kanji-sentence{
-  font-size:1.35rem;
-  line-height:1.9;
-  margin:10px 0 14px;
-  color:#222;
-}
-/* 答え部分を太字・色付き */
-.kanji-keyword{
-  font-weight:700;
-  color:var(--primary);
-  font-size:1.35rem;
-}
-/* ふりがな */
-.kanji-keyword ruby rt{font-size:0.55rem;color:var(--sub);}
-
-/* ④ 書き込みマス：中央揃え */
-.kanji-boxes{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
-.kanji-box-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.kanji-canvas{width:120px;height:120px;border:2px solid var(--rule);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
+.kanji-sentence{font-size:1.25rem;line-height:2;margin:10px 0 14px;color:#222;}
+.kanji-ruby{font-size:1.4rem;font-weight:700;color:var(--accent);}
+.kanji-boxes{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.kanji-char-set{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.kanji-ans-char{font-family:'Noto Serif JP',serif;font-size:5rem;color:var(--primary);width:140px;height:140px;display:none;align-items:center;justify-content:center;background:#fff;border:2px solid var(--accent);border-radius:10px;}
+body.show-answers .kanji-ans-char{display:flex;}
+/* 漢字canvas：2レイヤー */
+.kanji-canvas-pair{position:relative;width:120px;height:120px;border:2px solid var(--rule);border-radius:8px;background:#fff;overflow:hidden;display:block;flex-shrink:0;}
+.kanji-bg-canvas{position:absolute;top:0;left:0;width:120px;height:120px;pointer-events:none;}
+.kanji-fg-canvas{position:absolute;top:0;left:0;width:120px;height:120px;touch-action:none;cursor:crosshair;}
 .kanji-char-label{font-size:.72rem;color:#aaa;}
+/* 漢字エリアのツールバー */
+.kanji-tool-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.kanji-tool-btn{padding:6px 14px;border-radius:20px;border:2px solid var(--rule);font-family:inherit;font-size:.8rem;font-weight:700;cursor:pointer;background:#fff;color:#555;transition:all .15s;}
+.kanji-tool-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.kanji-tool-btn.eraser{background:#7b5c3a;color:#fff;border-color:#7b5c3a;}
 .zoom-btn{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:.82rem;cursor:pointer;font-family:inherit;font-weight:700;margin-top:4px;}
 .zoom-btn:active{background:#2a5a8c;}
-
 .kanji-item-footer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px;}
-.kanji-answer-area{display:none;align-items:center;gap:8px;}
-body.show-answers .kanji-answer-area{display:flex;}
-.kanji-answer-label{font-size:.9rem;color:var(--sub);font-weight:700;}
-.kanji-answer-text{font-family:'Noto Serif JP',serif;font-weight:700;font-size:2.4rem;color:var(--red);letter-spacing:6px;}
-.erase-all-btn{background:#fff;border:2px solid var(--rule);border-radius:10px;padding:10px 20px;font-size:.9rem;font-weight:700;color:var(--sub);cursor:pointer;margin-left:auto;font-family:inherit;}
-.erase-all-btn:active{background:#eee;}
 
 /* ===== 復習パネル ===== */
-#reviewSection{display:none;}
 .review-header-bar{background:var(--accent);color:var(--primary);border-radius:14px 14px 0 0;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-.review-header-title{font-family:'Kaisei Decol',serif;font-size:1.1rem;font-weight:700;flex:1;}
-.review-body{background:var(--card);border-radius:0 0 16px 16px;padding:0;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:16px;overflow:hidden;}
-
-/* 復習アイテム：左練習＋右お手本 */
-.review-item{display:flex;border-bottom:2px solid var(--bg);}
+.review-header-title{font-family:'Kaisei Decol',serif;font-size:1.05rem;font-weight:700;flex:1;}
+.review-body{background:var(--card);border-radius:0 0 16px 16px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:16px;overflow:hidden;}
+.review-item{padding:18px;border-bottom:2px solid var(--bg);}
 .review-item:last-child{border-bottom:none;}
-.review-left{flex:1;padding:18px;min-width:0;}
 .review-reading-big{font-size:1.2rem;font-weight:700;color:var(--primary);margin-bottom:4px;}
-.review-sentence-small{font-size:.88rem;color:var(--sub);margin-bottom:12px;line-height:1.8;}
+.review-sentence-small{font-size:.88rem;color:var(--sub);margin-bottom:14px;line-height:1.8;}
 .review-rounds{display:flex;flex-direction:column;gap:14px;}
 .review-round{border:1px solid var(--rule);border-radius:10px;padding:12px;}
-.review-round-label{font-size:.82rem;font-weight:700;color:var(--sub);margin-bottom:8px;}
-.review-boxes{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+.review-round-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.review-round-label{font-size:.82rem;font-weight:700;color:var(--sub);}
 .review-erase-btn{background:none;border:1px solid var(--rule);border-radius:8px;padding:5px 14px;font-size:.78rem;color:var(--sub);cursor:pointer;}
-
-/* 右：お手本（大きく・sticky） */
-.review-right{
-  width:180px;flex-shrink:0;
-  background:#f3f0ea;border-left:2px solid var(--rule);
-  padding:16px 10px;
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-  position:sticky;top:120px;align-self:flex-start;
-}
-.review-right-title{font-size:.8rem;font-weight:700;color:var(--sub);}
-.review-model-chars{display:flex;flex-direction:column;gap:8px;align-items:center;}
-.review-model-char{
-  font-family:'Noto Serif JP',serif;
-  font-size:4.5rem;color:var(--primary);line-height:1;
-  width:120px;height:120px;
-  display:flex;align-items:center;justify-content:center;
-  background:#fff;border:2px solid var(--rule);border-radius:10px;
-}
+.review-boxes{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:6px;justify-content:center;}
+.review-char-set{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.review-model-char{font-family:'Noto Serif JP',serif;font-size:5rem;color:var(--primary);width:140px;height:140px;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--accent);border-radius:10px;}
 
 /* ズームモーダル */
 .zoom-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);align-items:center;justify-content:center;}
 .zoom-modal.open{display:flex;}
-.zoom-modal-inner{background:#fff;border-radius:18px;padding:22px;max-width:95vw;max-height:95vh;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 8px 40px rgba(0,0,0,.4);}
-.zoom-modal-title{font-size:1.1rem;font-weight:700;color:var(--primary);}
-.zoom-modal-canvas{border:2px solid var(--rule);border-radius:10px;background:#fff;touch-action:none;cursor:crosshair;}
+.zoom-modal-inner{background:#fff;border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 8px 40px rgba(0,0,0,.4);}
+.zoom-modal-title{font-size:1rem;font-weight:700;color:var(--primary);}
+/* ★ ズームのbg/fgを正しく重ねる */
+.zoom-canvas-pair{position:relative;border:2px solid var(--rule);border-radius:10px;overflow:hidden;background:#fff;}
+.zoom-bg-canvas{position:absolute;top:0;left:0;pointer-events:none;}
+.zoom-fg-canvas{position:relative;display:block;touch-action:none;cursor:crosshair;background:transparent;}
 .zoom-modal-footer{display:flex;gap:10px;}
-.zoom-close-btn{padding:10px 22px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;font-family:inherit;}
-.zoom-clear-btn{padding:10px 22px;border-radius:10px;border:none;background:#eee;color:#555;font-weight:700;cursor:pointer;font-family:inherit;}
-.zoom-done-btn{padding:10px 22px;border-radius:10px;border:none;background:var(--green);color:#fff;font-weight:700;cursor:pointer;font-family:inherit;}
+.zoom-clear-btn,.zoom-done-btn,.zoom-close-btn{padding:10px 22px;border-radius:10px;border:none;font-weight:700;cursor:pointer;font-family:inherit;}
+.zoom-clear-btn{background:#eee;color:#555;}
+.zoom-done-btn{background:var(--green);color:#fff;}
+.zoom-close-btn{background:var(--primary);color:#fff;}
+
+/* 音設定モーダル */
+.sound-modal{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);align-items:center;justify-content:center;}
+.sound-modal.open{display:flex;}
+.sound-modal-inner{background:#fff;border-radius:18px;padding:24px;width:90%;max-width:440px;box-shadow:0 8px 40px rgba(0,0,0,.3);}
+.sound-row{margin-bottom:18px;}
+.sound-row-title{font-size:.88rem;font-weight:700;color:#444;margin-bottom:8px;}
+.sound-file-label{display:inline-flex;align-items:center;gap:10px;cursor:pointer;padding:8px 14px;border:2px solid var(--rule);border-radius:10px;background:#fafaf8;}
+.sound-file-label span.btn-txt{background:var(--primary);color:#fff;padding:5px 12px;border-radius:7px;font-size:.8rem;font-weight:700;}
+.sound-file-name{font-size:.78rem;color:#888;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -207,6 +167,8 @@ body.show-answers .kanji-answer-area{display:flex;}
   <input type="date" id="dateInput">
   <button class="btn btn-gen" onclick="generate()">🎲 新しい問題</button>
   <button class="btn btn-ans" id="ansBtn" onclick="toggleAnswers()">✅ 答えを見る</button>
+  <button class="hdr-btn" id="muteBtn" onclick="toggleMute()">音ON</button>
+  <button class="hdr-btn" onclick="openSoundModal()">🎵 音設定</button>
 </div>
 
 <div class="toolbar-wrap">
@@ -220,19 +182,15 @@ body.show-answers .kanji-answer-area{display:flex;}
       <div class="color-swatch c-red"         id="sw-red"  onclick="setColor('#d32f2f','red')"></div>
       <div class="color-swatch c-blue"        id="sw-blue" onclick="setColor('#1565c0','blue')"></div>
     </div>
-    <!-- ⑥太さ3段階 -->
     <span class="tool-label" style="margin-left:4px">太さ：</span>
     <div class="size-btns">
-      <button class="size-btn" id="sz-s" onclick="setPenSize('s')" title="細い"><span class="size-dot-s"></span></button>
-      <button class="size-btn active" id="sz-m" onclick="setPenSize('m')" title="中"><span class="size-dot-m"></span></button>
-      <button class="size-btn" id="sz-l" onclick="setPenSize('l')" title="太い"><span class="size-dot-l"></span></button>
+      <button class="size-btn"        id="sz-s" onclick="setPenSize('s')"><span class="sd-s"></span></button>
+      <button class="size-btn active" id="sz-m" onclick="setPenSize('m')"><span class="sd-m"></span></button>
+      <button class="size-btn"        id="sz-l" onclick="setPenSize('l')"><span class="sd-l"></span></button>
     </div>
     <div class="pencil-status" id="pencilStatus">Apple Pencil: 未検出</div>
   </div>
 </div>
-
-<button class="scroll-up-btn" id="scrollUpBtn">▲</button>
-<button class="scroll-dn-btn" id="scrollDnBtn">▼</button>
 
 <div class="tabs">
   <button class="tab active" onclick="switchTab('calc')">🔢 計算（12問）</button>
@@ -240,58 +198,73 @@ body.show-answers .kanji-answer-area{display:flex;}
 </div>
 
 <div class="content">
-
-  <!-- 計算パネル -->
   <div class="panel active" id="panel-calc">
     <div class="card">
-      <div class="sec-label">計算 ― 答えを書いて筆算しよう！🔥</div>
-      <!-- ⑧2列グリッド -->
+      <div class="sec-label">計算 ― 答えを書いて計算スペースで筆算しよう！🔥</div>
       <div class="calc-grid" id="calcList"></div>
     </div>
     <div class="result-bar">
-      <div class="result-date" id="dispDate">―</div>
-      <div class="cheer-msg"   id="cheerMsg">「新しい問題」を押してスタート！</div>
-      <div class="score-disp"  id="calcScore" style="display:none"></div>
+      <div style="font-size:.82rem;opacity:.75" id="dispDate">―</div>
+      <div class="cheer-msg" id="cheerMsg">「新しい問題」を押してスタート！</div>
+      <div class="score-disp" id="calcScore" style="display:none"></div>
     </div>
   </div>
 
-  <!-- 漢字パネル -->
   <div class="panel" id="panel-kanji">
-
-    <!-- テスト画面 -->
     <div id="testSection">
       <div class="card">
-        <div class="sec-label">漢字 ― 例文を読んで□にあたる漢字を書こう！🌟</div>
+        <div class="sec-label">漢字 ― 例文の□にあたる漢字を書こう！🌟</div>
         <div class="kanji-list" id="kanjiList"></div>
       </div>
       <div class="result-bar">
-        <div class="cheer-msg" style="font-family:inherit;font-size:.9rem;text-align:left">
-          全部書いたら「✅ 答えを見る」→ ○か×をつけよう！
-        </div>
+        <div class="cheer-msg" style="font-family:inherit;font-size:.9rem;text-align:left">全部書いたら「✅ 答えを見る」→ ○か×をつけよう！</div>
         <div class="score-disp" id="kanjiScore" style="display:none"></div>
         <button class="btn btn-review" id="reviewBtn" style="display:none" onclick="startReview()">🔁 復習する</button>
       </div>
     </div>
-
-    <!-- 復習画面 -->
-    <div id="reviewSection">
+    <div id="reviewSection" style="display:none">
       <div class="review-header-bar">
-        <div class="review-header-title">🔁 復習タイム！まちがえた漢字を3回ずつ書いてマスターしよう💪</div>
-        <button class="btn btn-end-review" onclick="endReview()">✅ 復習おわり！テストにもどる</button>
+        <div class="review-header-title">🔁 まちがえた漢字を3回ずつ書いてマスターしよう💪</div>
+        <button class="btn btn-end" onclick="endReview()">✅ 復習おわり！テストにもどる</button>
       </div>
-      <div class="review-body">
-        <div id="reviewList"></div>
-      </div>
+      <div class="review-body"><div id="reviewList"></div></div>
     </div>
+  </div>
+</div>
 
+<!-- 音設定モーダル -->
+<div class="sound-modal" id="soundModal">
+  <div class="sound-modal-inner">
+    <div style="font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:20px;">🎵 音の設定</div>
+    <div class="sound-row">
+      <div class="sound-row-title">○ 正解の音（mp3/wav）</div>
+      <label class="sound-file-label">
+        <span class="btn-txt">ファイルを選択</span>
+        <span class="sound-file-name" id="fname-correct">未設定（デフォルト：ピンポン）</span>
+        <input type="file" accept="audio/mpeg,audio/wav,audio/mp3,audio/ogg,audio/*" style="display:none" onchange="loadSound(this,'correct')">
+      </label>
+    </div>
+    <div class="sound-row">
+      <div class="sound-row-title">× 不正解の音（mp3/wav）</div>
+      <label class="sound-file-label">
+        <span class="btn-txt">ファイルを選択</span>
+        <span class="sound-file-name" id="fname-wrong">未設定（デフォルト：チャイム）</span>
+        <input type="file" accept="audio/mpeg,audio/wav,audio/mp3,audio/ogg,audio/*" style="display:none" onchange="loadSound(this,'wrong')">
+      </label>
+    </div>
+    <button onclick="closeSoundModal()" style="width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:6px;">✅ 閉じる</button>
   </div>
 </div>
 
 <!-- ズームモーダル -->
 <div class="zoom-modal" id="zoomModal">
-  <div class="zoom-modal-inner">
+  <div class="zoom-modal-inner" id="zoomInner">
     <div class="zoom-modal-title" id="zoomTitle">🔍 拡大して書く</div>
-    <canvas class="zoom-modal-canvas" id="zoomCanvas"></canvas>
+    <!-- ★ bgが下・fgが上で重なる -->
+    <div class="zoom-canvas-pair" id="zoomPair">
+      <canvas class="zoom-bg-canvas" id="zoomBg"></canvas>
+      <canvas class="zoom-fg-canvas" id="zoomFg"></canvas>
+    </div>
     <div class="zoom-modal-footer">
       <button class="zoom-clear-btn" onclick="zoomClear()">🧹 消す</button>
       <button class="zoom-done-btn"  onclick="zoomDone()">✅ 完了</button>
@@ -301,157 +274,154 @@ body.show-answers .kanji-answer-area{display:flex;}
 </div>
 
 <script>
-// ===== ⑤⑥ペンサイズ3段階（デフォルトM=8） =====
-const PEN_SIZES = { s:4, m:8, l:14 };
-let tool='pen', penColor='#1a3a5c', penSize=8, pencilConnected=false;
+'use strict';
 
+// ===== 音声（インポートのみ） =====
+var muted = false;
+var sounds = { write: null, correct: null, wrong: null };
+var writeTimer = null;
+
+function loadSound(input, key) {
+  var file = input.files[0];
+  if (!file) return;
+  var url = URL.createObjectURL(file);
+  sounds[key] = url;
+  document.getElementById('fname-'+key).textContent = file.name;
+}
+
+function playSound(key) {
+  if (muted || !sounds[key]) return;
+  try {
+    var a = new Audio(sounds[key]);
+    a.volume = 0.85;
+    a.play().catch(function(){});
+  } catch(e){}
+}
+
+// デフォルト音（Web Audio API）
+var actx = null;
+function getActx(){ if(!actx){ try{ actx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return actx; }
+function tone(f,d,v){ var c=getActx(); if(!c) return; try{ var o=c.createOscillator(),g=c.createGain(); o.frequency.value=f; g.gain.setValueAtTime(v||0.25,c.currentTime); g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d); o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime+d); }catch(e){} }
+
+function playCorrectSound() {
+  if (muted) return;
+  if (sounds.correct) { playSound('correct'); return; }
+  tone(880,0.1,0.28); setTimeout(function(){ tone(1108,0.15,0.28); },90);
+}
+function playWrongSound() {
+  if (muted) return;
+  if (sounds.wrong) { playSound('wrong'); return; }
+  tone(523,0.14,0.22); setTimeout(function(){ tone(659,0.14,0.22); },130); setTimeout(function(){ tone(784,0.2,0.22); },260);
+}
+
+function toggleMute() {
+  muted=!muted;
+  var b=document.getElementById('muteBtn');
+  b.textContent=muted?'音OFF':'音ON'; b.className='hdr-btn'+(muted?' off':'');
+}
+function openSoundModal(){ document.getElementById('soundModal').classList.add('open'); }
+function closeSoundModal(){ document.getElementById('soundModal').classList.remove('open'); }
+document.getElementById('soundModal').addEventListener('pointerdown',function(e){ if(e.target===document.getElementById('soundModal')) closeSoundModal(); });
+
+// ===== ツール =====
+var PEN_SIZES={s:4,m:8,l:14};
+var tool='pen', penColor='#1a3a5c', penSize=8, pencilConnected=false;
 function setTool(t){
   tool=t;
-  document.getElementById('btnPen').className   ='tool-btn'+(t==='pen'?    ' active':'');
-  document.getElementById('btnEraser').className='tool-btn'+(t==='eraser'?' eraser-active':'');
+  document.getElementById('btnPen').className    ='tool-btn'+(t==='pen'?    ' active':'');
+  document.getElementById('btnEraser').className ='tool-btn'+(t==='eraser'?' eraser-active':'');
 }
 function setColor(hex,name){
   penColor=hex; if(tool!=='pen') setTool('pen');
-  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.color-swatch').forEach(function(s){s.classList.remove('active');});
   document.getElementById('sw-'+name).classList.add('active');
 }
 function setPenSize(sz){
   penSize=PEN_SIZES[sz];
-  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.size-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('sz-'+sz).classList.add('active');
 }
-
-document.addEventListener('pointerdown',e=>{
+document.addEventListener('pointerdown',function(e){
   if(e.pointerType==='pen'){
-    if(!pencilConnected){ pencilConnected=true; const el=document.getElementById('pencilStatus'); el.textContent='🍎 Apple Pencil 接続中'; el.style.color='#3a9e6e'; }
+    if(!pencilConnected){ pencilConnected=true; var el=document.getElementById('pencilStatus'); el.textContent='🍎 Apple Pencil 接続中'; el.style.color='#3a9e6e'; }
     if(e.button===1){ e.preventDefault(); setTool(tool==='pen'?'eraser':'pen'); }
   }
 },{passive:false});
 
-// ===== スクロール =====
-function setupScrollBtn(id,dir){
-  const btn=document.getElementById(id); let timer=null;
-  const step=()=>window.scrollBy({top:dir*120,behavior:'auto'});
-  const start=(e)=>{e.preventDefault();step();timer=setInterval(step,80);};
-  const stop=()=>{clearInterval(timer);timer=null;};
-  btn.addEventListener('pointerdown',start,{passive:false});
-  btn.addEventListener('pointerup',stop); btn.addEventListener('pointerleave',stop);
-  btn.addEventListener('contextmenu',e=>e.preventDefault());
-}
-setupScrollBtn('scrollUpBtn',-1); setupScrollBtn('scrollDnBtn',1);
-
 // ===== 乱数 =====
-function seededRand(seed){ let s=seed; return ()=>{ s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/4294967296; }; }
-function getDateSeed(str){ return str.split('-').join('')|0; }
+function seededRand(seed){ var s=seed; return function(){ s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/4294967296; }; }
+function getDateSeed(str){ return parseInt(str.split('-').join(''),10); }
 function ri(min,max,r){ return Math.floor(r()*(max-min+1))+min; }
 function gcd(a,b){ return b===0?a:gcd(b,a%b); }
-function shuffle(arr,r){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function shuffle(arr,r){ var a=arr.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
 
 // ===== 計算生成 =====
 function generateCalcProblems(rand){
-  const types=shuffle([0,0,1,1,2,2,3,3,4,4,5,6],rand);
-  const gen=[
-    ()=>{ const a=ri(12,99,rand),b=ri(2,9,rand); return {q:`${a} × ${b}`,a:`${a*b}`}; },
-    ()=>{ const b=ri(2,9,rand),a=b*ri(2,15,rand); return {q:`${a} ÷ ${b}`,a:`${a/b}`}; },
-    ()=>{ const a=+(ri(1,9,rand)+'.'+ri(1,9,rand)),b=+(ri(1,9,rand)+'.'+ri(1,9,rand)); return {q:`${a} ＋ ${b}`,a:`${+((a+b).toFixed(2))}`}; },
-    ()=>{ const b=+(ri(1,8,rand)+'.'+ri(1,9,rand)),big=+(ri((b|0)+1,9,rand)+'.'+ri(0,9,rand)),sm=Math.min(big,b); return {q:`${Math.max(big,b)} － ${sm}`,a:`${+((Math.max(big,b)-sm).toFixed(2))}`}; },
-    ()=>{ const d=ri(3,9,rand),n1=ri(1,d-1,rand),n2=ri(1,d-1,rand),sum=n1+n2,g=gcd(sum,d); return {q:`${n1}/${d} ＋ ${n2}/${d}`,a:sum===d?'1':(g>1?`${sum/g}/${d/g}`:`${sum}/${d}`)}; },
-    ()=>{ const d=ri(3,9,rand),n1=ri(2,d,rand),n2=ri(1,n1-1,rand),diff=n1-n2,g=gcd(diff,d); return {q:`${n1}/${d} － ${n2}/${d}`,a:g>1?`${diff/g}/${d/g}`:`${diff}/${d}`}; },
-    ()=>{ const a=ri(4,20,rand),b=ri(3,15,rand); return {q:`${a}×${b}cm の面積`,a:`${a*b}cm²`}; },
+  var types=shuffle([0,0,1,1,2,2,3,3,4,4,5,6],rand);
+  var gen=[
+    function(){var a=ri(12,99,rand),b=ri(2,9,rand);return{q:a+' × '+b,a:''+a*b};},
+    function(){var b=ri(2,9,rand),a=b*ri(2,15,rand);return{q:a+' ÷ '+b,a:''+a/b};},
+    function(){var a=+(ri(1,9,rand)+'.'+ri(1,9,rand)),b=+(ri(1,9,rand)+'.'+ri(1,9,rand));return{q:a+' ＋ '+b,a:''+((a+b).toFixed(2)*1)};},
+    function(){var b=+(ri(1,8,rand)+'.'+ri(1,9,rand)),big=+(ri((b|0)+1,9,rand)+'.'+ri(0,9,rand)),sm=Math.min(big,b);return{q:Math.max(big,b)+' － '+sm,a:''+(Math.max(big,b)-sm).toFixed(2)*1};},
+    function(){var d=ri(3,9,rand),n1=ri(1,d-1,rand),n2=ri(1,d-1,rand),sum=n1+n2,g=gcd(sum,d);return{q:n1+'/'+d+' ＋ '+n2+'/'+d,a:sum===d?'1':g>1?(sum/g)+'/'+(d/g):sum+'/'+d};},
+    function(){var d=ri(3,9,rand),n1=ri(2,d,rand),n2=ri(1,n1-1,rand),df=n1-n2,g=gcd(df,d);return{q:n1+'/'+d+' － '+n2+'/'+d,a:g>1?(df/g)+'/'+(d/g):df+'/'+d};},
+    function(){var a=ri(4,20,rand),b=ri(3,15,rand);return{q:a+'×'+b+'cm の面積',a:a*b+'cm²'};}
   ];
-  return Array.from({length:12},(_,i)=>gen[types[i]%gen.length]());
+  return Array.from({length:12},function(_,i){return gen[types[i]%gen.length]();});
 }
+function fracHtml(s){return String(s).replace(/(\d+)\/(\d+)/g,function(_,n,d){return '<span class="frac"><span class="frac-n">'+n+'</span><span class="frac-d">'+d+'</span></span>';});}
 
-// ===== ② 漢字DB（例文テキスト形式・送りがな付き）=====
-// sentence: 表示用HTML（keywordをruby付き太字で埋め込み済み）
-// answer: 正解
-// hint: ヒント
-function kb(reading, kanji){ // キーワードHTML生成
-  const chars=[...kanji];
-  const rubyChars=reading.split('').map((r,i)=>`<ruby>${chars[i]||''}<rt>${r}</rt></ruby>`).join('');
-  return `<span class="kanji-keyword">${rubyChars}</span>`;
-}
-// 読みを文字ごとに分割するシンプルなhelper
-function kw(readingArr, kanjiStr){
-  return `<span class="kanji-keyword">${[...kanjiStr].map((c,i)=>`<ruby>${c}<rt>${readingArr[i]||''}</rt></ruby>`).join('')}</span>`;
-}
-
-const kanjiDB=[
-  { answer:'協力',   hint:'🤝 力をあわせること！',
-    sentence: ['みんなで', ['きょう','りょく'], 'して、大きな山をのぼった。'] },
-  { answer:'創造',   hint:'✨ ゼロから新しいものを作ること！',
-    sentence: ['新しいロボットを', ['そう','ぞう'], 'して、世界をおどろかせた。'] },
-  { answer:'環境',   hint:'🌏 生き物をとりまく自然のこと！',
-    sentence: ['地球の', ['かん','きょう'], 'を守るために、ゴミをへらそう。'] },
-  { answer:'正確',   hint:'✅ まちがいゼロのようす！',
-    sentence: ['', ['せい','かく'], 'な答えを出すために、何度も計算しなおした。'] },
-  { answer:'冒険',   hint:'🗺️ ドキドキする体験！',
-    sentence: ['夏休みに家族で', ['ぼう','けん'], 'の旅に出かけた。'] },
-  { answer:'収穫',   hint:'🌾 畑の作物をとり入れること！',
-    sentence: ['農家の人が、秋に米を', ['しゅう','かく'], 'した。'] },
-  { answer:'真剣',   hint:'🔥 本気でがんばるようす！',
-    sentence: ['', ['しん','けん'], 'に取り組んで、テストで100点をとった。'] },
-  { answer:'知識',   hint:'📚 勉強で得た情報のこと！',
-    sentence: ['図書館でたくさんの', ['ち','しき'], 'を身につけた。'] },
-  { answer:'意見',   hint:'💬 自分だけの考え！',
-    sentence: ['自分の', ['い','けん'], 'をはっきりと発表できた。'] },
-  { answer:'自由',   hint:'🕊️ 自分の思い通りにできること！',
-    sentence: ['', ['じ','ゆう'], 'を守るために、自分で決めたルールを大切にしている。'] },
-  { answer:'産業',   hint:'🏭 ものをつくる仕事全体！',
-    sentence: ['歴史の授業で、江戸時代の', ['さん','ぎょう'], 'について学んだ。'] },
-  { answer:'丁寧',   hint:'🌸 細かいところまで気を配ること！',
-    sentence: ['先生に', ['てい','ねい'], 'に教えてもらったので、よく分かった。'] },
-  { answer:'感謝',   hint:'🙏 ありがとうの気持ち！',
-    sentence: ['', ['かん','しゃ'], 'の気持ちをこめて、お礼の手紙を書いた。'] },
-  { answer:'挑戦',   hint:'💪 難しいことに立ち向かうこと！',
-    sentence: ['むずかしい問題に', ['ちょう','せん'], 'して、最後まであきらめなかった。'] },
-  { answer:'勇敢',   hint:'🦁 こわいことにも負けないようす！',
-    sentence: ['川で', ['ゆう','かん'], 'な行動をとって、友だちをすくった。'] },
-  { answer:'成長',   hint:'🌱 体や心が大きくなること！',
-    sentence: ['植物が', ['せい','ちょう'], 'するために、水や太陽の光が必要だ。'] },
-  { answer:'説明',   hint:'📢 相手にわかるよう話すこと！',
-    sentence: ['先生が実験の方法を', ['せつ','めい'], 'してくれた。'] },
-  { answer:'発見',   hint:'🔍 新しいものを見つけること！',
-    sentence: ['科学者が新しい星を', ['はっ','けん'], 'した。'] },
-  { answer:'将来',   hint:'🌈 これから先の自分の夢！',
-    sentence: ['', ['しょう','らい'], 'の夢に向かって、毎日練習を続けた。'] },
-  { answer:'歴史',   hint:'📜 むかしのできごとの記録！',
-    sentence: ['日本の', ['れき','し'], 'について、図書館で調べた。'] },
-  { answer:'大切',   hint:'💎 とても大事に思うようす！',
-    sentence: ['命よりも', ['たい','せつ'], 'なものはない、と先生が教えてくれた。'] },
-  { answer:'必要',   hint:'💡 どうしても必要なこと！',
-    sentence: ['夢をかなえるためには、努力が', ['ひつ','よう'], 'だ。'] },
-  { answer:'昨日',   hint:'⏰ 今日の1日前！',
-    sentence: ['', ['きの','う'], 'のできごとをふり返って、日記を書いた。'] },
-  { answer:'協力',   hint:'🤝 力をあわせること！',
-    sentence: ['クラスみんなで', ['きょう','りょく'], 'して、文化祭の準備をした。'] },
-  { answer:'真剣',   hint:'🔥 本気でがんばるようす！',
-    sentence: ['サッカーの試合に', ['しん','けん'], 'に取り組んだ。'] },
+// ===== 漢字DB =====
+var kanjiDB=[
+  {answer:'協力', hint:'🤝 力をあわせること！',           sentence:['みんなで',['きょう','りょく'],'して、大きな山をのぼった。']},
+  {answer:'創造', hint:'✨ ゼロから新しいものを作ること！', sentence:['新しいロボットを',['そう','ぞう'],'して、世界をおどろかせた。']},
+  {answer:'環境', hint:'🌏 生き物をとりまく自然のこと！',  sentence:['地球の',['かん','きょう'],'を守るために、ゴミをへらそう。']},
+  {answer:'正確', hint:'✅ まちがいゼロのようす！',         sentence:['',['せい','かく'],'な答えを出すために、何度も計算しなおした。']},
+  {answer:'冒険', hint:'🗺️ ドキドキする体験！',           sentence:['夏休みに家族で',['ぼう','けん'],'の旅に出かけた。']},
+  {answer:'収穫', hint:'🌾 畑の作物をとり入れること！',    sentence:['農家の人が、秋に米を',['しゅう','かく'],'した。']},
+  {answer:'真剣', hint:'🔥 本気でがんばるようす！',         sentence:['',['しん','けん'],'に取り組んで、テストで100点をとった。']},
+  {answer:'知識', hint:'📚 勉強で得た情報のこと！',         sentence:['図書館でたくさんの',['ち','しき'],'を身につけた。']},
+  {answer:'意見', hint:'💬 自分だけの考え！',              sentence:['自分の',['い','けん'],'をはっきりと発表できた。']},
+  {answer:'自由', hint:'🕊️ 自分の思い通りにできること！',  sentence:['',['じ','ゆう'],'を守るために、自分で決めたルールを大切にしている。']},
+  {answer:'産業', hint:'🏭 ものをつくる仕事全体！',         sentence:['歴史の授業で、江戸時代の',['さん','ぎょう'],'について学んだ。']},
+  {answer:'丁寧', hint:'🌸 細かいところまで気を配ること！', sentence:['先生に',['てい','ねい'],'に教えてもらったので、よく分かった。']},
+  {answer:'感謝', hint:'🙏 ありがとうの気持ち！',           sentence:['',['かん','しゃ'],'の気持ちをこめて、お礼の手紙を書いた。']},
+  {answer:'挑戦', hint:'💪 難しいことに立ち向かうこと！',   sentence:['むずかしい問題に',['ちょう','せん'],'して、最後まであきらめなかった。']},
+  {answer:'勇敢', hint:'🦁 こわいことにも負けないようす！', sentence:['川で',['ゆう','かん'],'な行動をとって、友だちをすくった。']},
+  {answer:'成長', hint:'🌱 体や心が大きくなること！',        sentence:['植物が',['せい','ちょう'],'するために、水や太陽の光が必要だ。']},
+  {answer:'説明', hint:'📢 相手にわかるよう話すこと！',     sentence:['先生が実験の方法を',['せつ','めい'],'してくれた。']},
+  {answer:'発見', hint:'🔍 新しいものを見つけること！',     sentence:['科学者が新しい星を',['はっ','けん'],'した。']},
+  {answer:'将来', hint:'🌈 これから先の自分の夢！',          sentence:['',['しょう','らい'],'の夢に向かって、毎日練習を続けた。']},
+  {answer:'歴史', hint:'📜 むかしのできごとの記録！',       sentence:['日本の',['れき','し'],'について、図書館で調べた。']},
+  {answer:'大切', hint:'💎 とても大事に思うようす！',       sentence:['命よりも',['たい','せつ'],'なものはない、と先生が教えてくれた。']},
+  {answer:'必要', hint:'💡 どうしても必要なこと！',          sentence:['夢をかなえるためには、努力が',['ひつ','よう'],'だ。']},
+  {answer:'昨日', hint:'⏰ 今日の1日前！',                 sentence:['',['きの','う'],'のできごとをふり返って、日記を書いた。']},
+  {answer:'協力', hint:'🤝 力をあわせること！',             sentence:['クラスみんなで',['きょう','りょく'],'して、文化祭の準備をした。']},
+  {answer:'真剣', hint:'🔥 本気でがんばるようす！',          sentence:['サッカーの試合に',['しん','けん'],'に取り組んだ。']}
 ];
+var cheers=['今日もよくがんばった！🌟','毎日続けるキミはすごい！✨','コツコツが力になる！💪','昨日よりひとつ賢くなった！📖','あきらめないキミが最強！🔥','やればできる！その調子！⭐'];
 
-// sentence配列からHTMLを生成
-function buildSentenceHtml(sentArr, answer){
-  const chars=[...answer];
-  return sentArr.map(part=>{
-    if(Array.isArray(part)){
-      // キーワード部分：ふりがな＋太字
-      return chars.map((c,i)=>`<ruby>${c}<rt>${part[i]||''}</rt></ruby>`).join('');
-    } else {
-      return part;
-    }
-  }).join('');
+function buildSentenceHtml(k){
+  var h='';
+  k.sentence.forEach(function(p){ h+=Array.isArray(p)?'<span class="kanji-ruby">'+p.join('')+'</span>':p; });
+  return h;
 }
-
-function fracHtml(s){ return String(s).replace(/(\d+)\/(\d+)/g,(_,n,d)=>`<span class="frac"><span class="frac-n">${n}</span><span class="frac-d">${d}</span></span>`); }
+function buildSentenceText(k){ return k.sentence.map(function(p){return Array.isArray(p)?k.answer:p;}).join(''); }
+// ★ ズームタイトル用：ふりがなのみ抽出
+function buildReadingFromSentence(k){
+  var r=[];
+  k.sentence.forEach(function(p){ if(Array.isArray(p)) r=r.concat(p); });
+  return r.join('');
+}
 
 // ===== タブ =====
 function switchTab(name){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['calc','kanji'][i]===name));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===`panel-${name}`));
+  document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',['calc','kanji'][i]===name);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+name);});
 }
 
 // ===== 答え表示 =====
-let answersOn=false;
+var answersOn=false;
 function toggleAnswers(){
   answersOn=!answersOn;
   document.body.classList.toggle('show-answers',answersOn);
@@ -459,253 +429,301 @@ function toggleAnswers(){
 }
 
 // ===== 採点 =====
-const calcScores=Array(12).fill(null);
-const kanjiScores=Array(10).fill(null);
-
+var calcScores=[], kanjiScores=[];
 function markCalc(i,val){
   calcScores[i]=calcScores[i]===val?null:val;
-  document.getElementById(`co-o-${i}`).className='sc-o'+(calcScores[i]==='o'?' on':'');
-  document.getElementById(`co-x-${i}`).className='sc-x'+(calcScores[i]==='x'?' on':'');
-  const c=calcScores.filter(v=>v==='o').length, a=calcScores.filter(v=>v!==null).length;
-  if(a>0){ const el=document.getElementById('calcScore'); el.style.display=''; el.innerHTML=`計算 <em>${c}</em>/12`; }
+  document.getElementById('co-o-'+i).className='sc-o'+(calcScores[i]==='o'?' on':'');
+  document.getElementById('co-x-'+i).className='sc-x'+(calcScores[i]==='x'?' on':'');
+  if(calcScores[i]==='o')playCorrectSound(); else if(calcScores[i]==='x')playWrongSound();
+  var c=calcScores.filter(function(v){return v==='o';}).length,a=calcScores.filter(function(v){return v!==null;}).length;
+  if(a>0){var el=document.getElementById('calcScore');el.style.display='';el.innerHTML='計算 <em>'+c+'</em>/12';}
 }
 function markKanji(i,val){
   kanjiScores[i]=kanjiScores[i]===val?null:val;
-  document.getElementById(`ko-o-${i}`).className='sc-o'+(kanjiScores[i]==='o'?' on':'');
-  document.getElementById(`ko-x-${i}`).className='sc-x'+(kanjiScores[i]==='x'?' on':'');
-  const c=kanjiScores.filter(v=>v==='o').length, a=kanjiScores.filter(v=>v!==null).length;
-  if(a>0){ const el=document.getElementById('kanjiScore'); el.style.display=''; el.innerHTML=`漢字 <em>${c}</em>/10`; }
-  const wrongs=kanjiScores.map((v,i)=>v==='x'?i:-1).filter(i=>i>=0);
+  document.getElementById('ko-o-'+i).className='sc-o'+(kanjiScores[i]==='o'?' on':'');
+  document.getElementById('ko-x-'+i).className='sc-x'+(kanjiScores[i]==='x'?' on':'');
+  if(kanjiScores[i]==='o')playCorrectSound(); else if(kanjiScores[i]==='x')playWrongSound();
+  var c=kanjiScores.filter(function(v){return v==='o';}).length,a=kanjiScores.filter(function(v){return v!==null;}).length;
+  if(a>0){var el=document.getElementById('kanjiScore');el.style.display='';el.innerHTML='漢字 <em>'+c+'</em>/10';}
+  var wrongs=kanjiScores.map(function(v,i){return v==='x'?i:-1;}).filter(function(i){return i>=0;});
   document.getElementById('reviewBtn').style.display=wrongs.length>0?'':'none';
 }
 
-// ===== キャンバス =====
-function drawGuides(canvas){
-  const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
-  ctx.save(); ctx.strokeStyle='#ddd'; ctx.lineWidth=Math.max(1,w/100); ctx.setLineDash([6,6]);
+// ===== キャンバス（補助線レイヤー分離）=====
+function drawGuidesOn(bg){
+  var ctx=bg.getContext('2d'),w=bg.width,h=bg.height;
+  ctx.clearRect(0,0,w,h);
+  ctx.save(); ctx.strokeStyle='#ccc'; ctx.lineWidth=Math.max(1,w/100); ctx.setLineDash([5,5]);
   ctx.beginPath();ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.stroke();
   ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
-  ctx.setLineDash([]);ctx.restore();
+  ctx.setLineDash([]); ctx.restore();
 }
-function setupCanvas(canvas,opts){
-  const ctx=canvas.getContext('2d'); ctx.lineCap='round'; ctx.lineJoin='round';
-  if(opts&&opts.guides) drawGuides(canvas);
-  canvas.style.touchAction='none';
-  let drawing=false,last=null;
-  function getPos(e){ const r=canvas.getBoundingClientRect(); return {x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)}; }
-  function onDown(e){ if(e.isPrimary===false) return; e.preventDefault(); e.stopPropagation(); canvas.setPointerCapture(e.pointerId); drawing=true; last=getPos(e); }
+
+function setupCanvas(fg, opts){
+  var ctx=fg.getContext('2d');
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  fg.style.touchAction='none';
+  var drawing=false, last=null;
+  var penOnly=opts&&opts.penOnly;
+
+  function getPos(e){
+    var r=fg.getBoundingClientRect();
+    return {x:(e.clientX-r.left)*(fg.width/r.width),y:(e.clientY-r.top)*(fg.height/r.height)};
+  }
+  function onDown(e){
+    if(e.isPrimary===false) return;
+    if(penOnly&&e.pointerType!=='pen') return;
+    e.preventDefault(); e.stopPropagation();
+    if(fg.setPointerCapture) fg.setPointerCapture(e.pointerId);
+    drawing=true; last=getPos(e);
+  }
   function onMove(e){
-    if(!drawing||e.isPrimary===false) return; e.preventDefault(); e.stopPropagation();
-    const p=getPos(e); ctx.save();
-    if(tool==='eraser'){ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='rgba(0,0,0,1)';ctx.lineWidth=penSize*4;}
-    else{ctx.globalCompositeOperation='source-over';ctx.strokeStyle=penColor;const pr=(e.pressure>0)?e.pressure+0.5:1;ctx.lineWidth=penSize*pr;}
+    if(!drawing||e.isPrimary===false) return;
+    if(penOnly&&e.pointerType!=='pen') return;
+    e.preventDefault(); e.stopPropagation();
+    var p=getPos(e); ctx.save();
+    if(tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out'; ctx.strokeStyle='rgba(0,0,0,1)'; ctx.lineWidth=penSize*4;
+    } else {
+      ctx.globalCompositeOperation='source-over'; ctx.strokeStyle=penColor;
+      ctx.lineWidth=penSize*((e.pressure>0)?e.pressure+0.5:1);
+    }
     ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.restore();
-    if(opts&&opts.guides&&tool==='eraser') drawGuides(canvas);
     last=p;
   }
-  function onUp(e){ e.preventDefault(); drawing=false; last=null; }
-  canvas.addEventListener('pointerdown',onDown,{passive:false});
-  canvas.addEventListener('pointermove',onMove,{passive:false});
-  canvas.addEventListener('pointerup',onUp,{passive:false});
-  canvas.addEventListener('pointercancel',onUp,{passive:false});
-  canvas.addEventListener('touchstart',e=>{ if(e.touches.length===1) e.preventDefault(); },{passive:false});
-  canvas.addEventListener('touchmove', e=>{ if(e.touches.length===1) e.preventDefault(); },{passive:false});
+  function onUp(e){e.preventDefault();drawing=false;last=null;}
+  fg.addEventListener('pointerdown',onDown,{passive:false});
+  fg.addEventListener('pointermove',onMove,{passive:false});
+  fg.addEventListener('pointerup',onUp,{passive:false});
+  fg.addEventListener('pointercancel',onUp,{passive:false});
+  fg.addEventListener('touchstart',function(e){if(e.touches.length===1)e.preventDefault();},{passive:false});
+  fg.addEventListener('touchmove',function(e){if(e.touches.length===1)e.preventDefault();},{passive:false});
 }
-function clearCanvas(c,guides){ c.getContext('2d').clearRect(0,0,c.width,c.height); if(guides) drawGuides(c); }
-function makeKanjiCanvas(){ const c=document.createElement('canvas'); c.className='kanji-canvas'; c.width=240; c.height=240; return c; }
 
-// ===== ズームモーダル =====
-let zoomSrc=null, zoomGuides=false;
-function openZoom(src,label,guides){
-  zoomSrc=src; zoomGuides=guides;
-  const zc=document.getElementById('zoomCanvas');
-  document.getElementById('zoomTitle').textContent=`🔍 ${label}（拡大）`;
-  const sz=Math.min(window.innerWidth-60, window.innerHeight-220, 340);
-  zc.width=sz; zc.height=sz; zc.style.width=sz+'px'; zc.style.height=sz+'px';
-  const ctx=zc.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,sz,sz); ctx.drawImage(src,0,0,sz,sz);
-  if(guides) drawGuides(zc);
+function clearFg(fg){fg.getContext('2d').clearRect(0,0,fg.width,fg.height);}
+
+// 漢字用2レイヤーCanvas生成（ペンのみ）
+function makeKanjiPair(){
+  var pair=document.createElement('div'); pair.className='kanji-canvas-pair';
+  var bg=document.createElement('canvas'); bg.className='kanji-bg-canvas'; bg.width=240; bg.height=240;
+  var fg=document.createElement('canvas'); fg.className='kanji-fg-canvas'; fg.width=240; fg.height=240;
+  pair.appendChild(bg); pair.appendChild(fg);
+  drawGuidesOn(bg);
+  setupCanvas(fg,{penOnly:true});
+  return {pair:pair,fg:fg,bg:bg};
+}
+
+// ===== ズーム（★補助線をbgに確実に表示）=====
+var zoomSrcFg=null;
+function openZoom(fg, reading){
+  zoomSrcFg=fg;
+  // ★ タイトルはふりがなのみ（漢字非表示）
+  document.getElementById('zoomTitle').textContent='🔍 '+reading;
+  var sz=Math.min(window.innerWidth-80,window.innerHeight-200,420);
+  sz=Math.floor(sz);
+  var bg=document.getElementById('zoomBg');
+  var zfg=document.getElementById('zoomFg');
+  var pair=document.getElementById('zoomPair');
+  // ★ サイズをpxで明示的に設定
+  bg.width=sz; bg.height=sz;
+  bg.style.width=sz+'px'; bg.style.height=sz+'px';
+  bg.style.position='absolute'; bg.style.top='0'; bg.style.left='0';
+  zfg.width=sz; zfg.height=sz;
+  zfg.style.width=sz+'px'; zfg.style.height=sz+'px';
+  zfg.style.position='relative'; zfg.style.display='block'; zfg.style.background='transparent';
+  pair.style.width=sz+'px'; pair.style.height=sz+'px';
+  // ★ bgに補助線を描画（必ず先に）
+  drawGuidesOn(bg);
+  // fgに既存の手書きをコピー
+  var ctx=zfg.getContext('2d');
+  ctx.clearRect(0,0,sz,sz);
+  ctx.drawImage(fg,0,0,sz,sz);
   document.getElementById('zoomModal').classList.add('open');
-  setupCanvas(zc,{guides});
+  setupCanvas(zfg,{penOnly:true});
 }
 function zoomDone(){
-  if(zoomSrc){ const ctx=zoomSrc.getContext('2d'); ctx.clearRect(0,0,zoomSrc.width,zoomSrc.height); ctx.drawImage(document.getElementById('zoomCanvas'),0,0,zoomSrc.width,zoomSrc.height); if(zoomGuides) drawGuides(zoomSrc); }
+  if(zoomSrcFg){
+    var zfg=document.getElementById('zoomFg');
+    var ctx=zoomSrcFg.getContext('2d');
+    ctx.clearRect(0,0,zoomSrcFg.width,zoomSrcFg.height);
+    ctx.drawImage(zfg,0,0,zoomSrcFg.width,zoomSrcFg.height);
+  }
   zoomClose();
 }
-function zoomClear(){ clearCanvas(document.getElementById('zoomCanvas'),zoomGuides); }
-function zoomClose(){ document.getElementById('zoomModal').classList.remove('open'); zoomSrc=null; }
-document.getElementById('zoomModal').addEventListener('pointerdown',e=>{ if(e.target===document.getElementById('zoomModal')) zoomClose(); });
+function zoomClear(){
+  var zfg=document.getElementById('zoomFg');
+  clearFg(zfg);
+  // ★ 消したあとbgの補助線を再描画
+  drawGuidesOn(document.getElementById('zoomBg'));
+}
+function zoomClose(){document.getElementById('zoomModal').classList.remove('open');zoomSrcFg=null;}
+document.getElementById('zoomModal').addEventListener('pointerdown',function(e){if(e.target===document.getElementById('zoomModal'))zoomClose();});
+document.getElementById('zoomInner').addEventListener('pointerdown',function(e){e.stopPropagation();});
 
 // ===== 計算レンダリング =====
-let currentCalc=[];
+var currentCalc=[];
 function renderCalc(problems){
-  currentCalc=problems; calcScores.fill(null);
-  const list=document.getElementById('calcList'); list.innerHTML='';
-  problems.forEach((p,i)=>{
-    const card=document.createElement('div'); card.className='calc-card';
-    card.innerHTML=`
-      <div class="calc-top">
-        <div class="calc-num-badge">${i+1}</div>
-        <div class="calc-question">${fracHtml(p.q)}<span class="equals">＝</span></div>
-        <div class="ans-canvas-wrap">
-          <canvas class="ans-canvas" width="160" height="160"></canvas>
-          <button class="ans-clear-btn">✕</button>
-        </div>
-        <div class="calc-answer-reveal">${fracHtml(p.a)}</div>
-        <!-- ③右上に○× -->
-        <div class="calc-score-wrap">
-          <button class="sc-o" id="co-o-${i}" onclick="markCalc(${i},'o')">○</button>
-          <button class="sc-x" id="co-x-${i}" onclick="markCalc(${i},'x')">×</button>
-        </div>
-      </div>
-      <div class="calc-scratch-wrap">
-        <div class="scratch-header"><span class="scratch-label">📝 筆算スペース</span><button class="scratch-clear-btn">消す</button></div>
-        <canvas class="scratch-canvas" width="600" height="420"></canvas>
-      </div>`;
+  currentCalc=problems; calcScores=new Array(12).fill(null);
+  var list=document.getElementById('calcList'); list.innerHTML='';
+  problems.forEach(function(p,i){
+    var card=document.createElement('div'); card.className='calc-card';
+    card.innerHTML=
+      '<div class="calc-top">'+
+        '<div class="calc-num-badge">'+(i+1)+'</div>'+
+        '<div class="calc-question">'+fracHtml(p.q)+'<span class="equals">＝</span></div>'+
+        '<div class="ans-canvas-wrap">'+
+          '<canvas class="ans-canvas" width="220" height="112"></canvas>'+
+          '<button class="ans-clear-btn">✕</button>'+
+        '</div>'+
+        '<div class="calc-answer-reveal">'+fracHtml(p.a)+'</div>'+
+      '</div>'+
+      '<div class="calc-score-row">'+
+        '<button class="sc-o" id="co-o-'+i+'" onclick="markCalc('+i+',\'o\')">○</button>'+
+        '<button class="sc-x" id="co-x-'+i+'" onclick="markCalc('+i+',\'x\')">×</button>'+
+      '</div>'+
+      '<div class="calc-scratch-wrap">'+
+        '<div class="scratch-label"><span>📝 計算スペース</span><button class="scratch-clear-btn">消す</button></div>'+
+        '<canvas class="scratch-canvas" width="600" height="400"></canvas>'+
+      '</div>';
     list.appendChild(card);
-    const ac=card.querySelector('.ans-canvas'),sc=card.querySelector('.scratch-canvas');
-    setupCanvas(ac); setupCanvas(sc);
-    card.querySelector('.ans-clear-btn').onclick=()=>clearCanvas(ac,false);
-    card.querySelector('.scratch-clear-btn').onclick=()=>clearCanvas(sc,false);
+    var ac=card.querySelector('.ans-canvas');
+    var sc=card.querySelector('.scratch-canvas');
+    setupCanvas(ac,{});
+    setupCanvas(sc,{penOnly:true});
+    card.querySelector('.ans-clear-btn').onclick=function(){clearFg(ac);};
+    card.querySelector('.scratch-clear-btn').onclick=function(){clearFg(sc);};
   });
 }
 
 // ===== 漢字レンダリング =====
-let currentKanji=[];
+var currentKanji=[];
 function renderKanji(picked){
-  currentKanji=picked; kanjiScores.fill(null);
-  const list=document.getElementById('kanjiList'); list.innerHTML='';
-  picked.forEach((k,i)=>{
-    const chars=[...k.answer];
-    // ② 例文テキスト（キーワードを太字・ふりがな付き）
-    const sentParts=k.sentence;
-    let sentHtml='';
-    sentParts.forEach(part=>{
-      if(Array.isArray(part)){
-        // 答え部分：ふりがなのみ・大きめ・オレンジ（漢字・□は一切表示しない）
-        const ruby=part.join('');
-        sentHtml+=`<span style="font-size:1.5rem;font-weight:700;color:#e8a020;letter-spacing:.05em;">${ruby}</span>`;
-      } else {
-        sentHtml+=part;
-      }
-    });
+  currentKanji=picked; kanjiScores=new Array(10).fill(null);
+  var list=document.getElementById('kanjiList'); list.innerHTML='';
+  picked.forEach(function(k,i){
+    var chars=k.answer.split('');
+    // ★ ズームタイトル用ふりがな（文字ごとに対応）
+    var readings=[];
+    k.sentence.forEach(function(p){if(Array.isArray(p))readings=readings.concat(p);});
 
-    const item=document.createElement('div'); item.className='kanji-item';
-    item.innerHTML=`
-      <!-- ③右上に○× -->
-      <div class="kanji-score-wrap">
-        <button class="sc-o" id="ko-o-${i}" onclick="markKanji(${i},'o')">○</button>
-        <button class="sc-x" id="ko-x-${i}" onclick="markKanji(${i},'x')">×</button>
-      </div>
-      <div class="kanji-num-row">
-        <div class="kanji-num">${i+1}</div>
-        <div class="kanji-hint">${k.hint}</div>
-      </div>
-      <!-- ② 例文テキスト（マスなし） -->
-      <div class="kanji-sentence">${sentHtml}</div>
-      <!-- ④ 書き込みマス（中央揃え） -->
-      <div class="kanji-boxes"></div>
-      <div class="kanji-item-footer">
-        <div class="kanji-answer-area">
-          <span class="kanji-answer-label">正解：</span>
-          <div class="kanji-answer-text">${k.answer}</div>
-        </div>
-        <button class="erase-all-btn">🧹 全消し</button>
-      </div>`;
+    var item=document.createElement('div'); item.className='kanji-item';
+    item.innerHTML=
+      '<div class="kanji-score-wrap">'+
+        '<button class="sc-o" id="ko-o-'+i+'" onclick="markKanji('+i+',\'o\')">○</button>'+
+        '<button class="sc-x" id="ko-x-'+i+'" onclick="markKanji('+i+',\'x\')">×</button>'+
+      '</div>'+
+      '<div class="kanji-num-row">'+
+        '<div class="kanji-num">'+(i+1)+'</div>'+
+        '<div class="kanji-hint">'+k.hint+'</div>'+
+      '</div>'+
+      '<div class="kanji-sentence">'+buildSentenceHtml(k)+'</div>'+
+      '<div class="kanji-boxes"></div>'+
+      '<div class="kanji-item-footer"></div>';
     list.appendChild(item);
 
-    const boxesEl=item.querySelector('.kanji-boxes');
-    chars.forEach((_,ci)=>{
-      const wrap=document.createElement('div'); wrap.className='kanji-box-wrap';
-      const canvas=makeKanjiCanvas();
-      const lbl=document.createElement('div'); lbl.className='kanji-char-label'; lbl.textContent=`${ci+1}文字目`;
-      const zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
-      zBtn.onclick=()=>openZoom(canvas,`${k.answer}（${ci+1}文字目）`,true);
-      wrap.appendChild(canvas); wrap.appendChild(lbl); wrap.appendChild(zBtn);
-      boxesEl.appendChild(wrap);
-      setupCanvas(canvas,{guides:true});
+    var boxesEl=item.querySelector('.kanji-boxes');
+    var fgList=[];
+    chars.forEach(function(ch,ci){
+      var reading=readings[ci]||'';
+      var set=document.createElement('div'); set.className='kanji-char-set';
+      // 正解（答えを見るまで非表示）
+      var ansChar=document.createElement('div'); ansChar.className='kanji-ans-char'; ansChar.textContent=ch;
+      // 2レイヤーcanvas
+      var kp=makeKanjiPair();
+      // ズームボタン（★タイトルはふりがな）
+      var zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
+      (function(fg,r){zBtn.onclick=function(){openZoom(fg,r);};})(kp.fg, reading||readings.join(''));
+      set.appendChild(ansChar); set.appendChild(kp.pair); set.appendChild(zBtn);
+      boxesEl.appendChild(set);
+      fgList.push(kp.fg);
     });
-    item.querySelector('.erase-all-btn').onclick=()=>
-      item.querySelectorAll('.kanji-canvas').forEach(c=>clearCanvas(c,true));
+
+    // ★ 消しゴムボタン（全消しではなく消しゴム切替）
+    var footer=item.querySelector('.kanji-item-footer');
+    var eraserBtn=document.createElement('button');
+    eraserBtn.className='kanji-tool-btn'; eraserBtn.textContent='🧹 消しゴム';
+    eraserBtn.style.marginLeft='auto';
+    var eraserOn=false;
+    eraserBtn.onclick=function(){
+      eraserOn=!eraserOn;
+      eraserBtn.className='kanji-tool-btn'+(eraserOn?' eraser':'');
+      eraserBtn.textContent=eraserOn?'✏️ ペンにもどす':'🧹 消しゴム';
+      // fgCanvasのtool一時切替（このアイテム専用）
+      fgList.forEach(function(fg){fg.dataset.eraserOn=eraserOn?'1':'';});
+    };
+    footer.appendChild(eraserBtn);
+
+    // fgのonMoveでdataset.eraserOnを参照するよう上書き
+    fgList.forEach(function(fg){
+      var origSetup=fg._eraseOverride;
+      // 消しゴムonのときだけ消しゴム動作
+      fg.addEventListener('pointermove',function(e){
+        if(fg.dataset.eraserOn==='1' && e.pressure>0){
+          // penの時だけ（penOnly済み）
+          var ctx=fg.getContext('2d');
+          var r=fg.getBoundingClientRect();
+          var x=(e.clientX-r.left)*(fg.width/r.width);
+          var y=(e.clientY-r.top)*(fg.height/r.height);
+          ctx.save();
+          ctx.globalCompositeOperation='destination-out';
+          ctx.beginPath();
+          ctx.arc(x,y,penSize*3,0,Math.PI*2);
+          ctx.fill();
+          ctx.restore();
+        }
+      },{passive:false});
+    });
   });
 }
 
-// ===== 復習機能 =====
+// ===== 復習 =====
 function startReview(){
-  const wrongs=kanjiScores.map((v,i)=>v==='x'?i:-1).filter(i=>i>=0);
+  var wrongs=[]; kanjiScores.forEach(function(v,i){if(v==='x') wrongs.push(i);});
   if(wrongs.length===0) return;
-
   document.getElementById('testSection').style.display='none';
   document.getElementById('reviewSection').style.display='';
+  var list=document.getElementById('reviewList'); list.innerHTML='';
 
-  const list=document.getElementById('reviewList');
-  list.innerHTML='';
+  wrongs.forEach(function(idx){
+    var k=currentKanji[idx], chars=k.answer.split('');
+    var readings=[];
+    k.sentence.forEach(function(p){if(Array.isArray(p))readings=readings.concat(p);});
 
-  // canvasのsetupを後でまとめて行うためのリスト
-  const pendingSetup=[];
-
-  wrongs.forEach(idx=>{
-    const k=currentKanji[idx];
-    const chars=[...k.answer];
-
-    let sentText='';
-    k.sentence.forEach(part=>{
-      if(Array.isArray(part)) sentText+=k.answer;
-      else sentText+=part;
-    });
-
-    const item=document.createElement('div');
-    item.className='review-item';
+    var item=document.createElement('div'); item.className='review-item';
+    item.innerHTML=
+      '<div class="review-reading-big">「'+k.answer+'」を練習しよう！</div>'+
+      '<div class="review-sentence-small">📖 '+buildSentenceText(k)+'</div>'+
+      '<div class="review-rounds"></div>';
     list.appendChild(item);
+    var roundsEl=item.querySelector('.review-rounds');
 
-    const left=document.createElement('div');
-    left.className='review-left';
-    left.innerHTML=`
-      <div class="review-reading-big">「${k.answer}」を練習しよう！</div>
-      <div class="review-sentence-small">📖 ${sentText}</div>
-      <div class="review-rounds"></div>`;
-    item.appendChild(left);
-
-    const right=document.createElement('div');
-    right.className='review-right';
-    right.innerHTML=`<div class="review-right-title">📖 お手本</div><div class="review-model-chars">${
-      chars.map(ch=>`<div class="review-model-char">${ch}</div>`).join('')
-    }</div>`;
-    item.appendChild(right);
-
-    const roundsEl=left.querySelector('.review-rounds');
-    for(let r=0;r<3;r++){
-      const rd=document.createElement('div');
-      rd.className='review-round';
-      rd.innerHTML=`<div class="review-round-label">${['1回目','2回目','3回目'][r]}</div><div class="review-boxes"></div><button class="review-erase-btn">🧹 消す</button>`;
+    for(var r=0;r<3;r++){
+      var rd=document.createElement('div'); rd.className='review-round';
+      rd.innerHTML=
+        '<div class="review-round-header">'+
+          '<div class="review-round-label">'+(r+1)+'回目</div>'+
+          '<button class="review-erase-btn">🧹 消す</button>'+
+        '</div>'+
+        '<div class="review-boxes"></div>';
       roundsEl.appendChild(rd);
-      const boxes=rd.querySelector('.review-boxes');
-      const canvases=[];
-      chars.forEach((_,ci)=>{
-        const wrap=document.createElement('div'); wrap.className='kanji-box-wrap';
-        const c=makeKanjiCanvas();
-        const lbl=document.createElement('div'); lbl.className='kanji-char-label'; lbl.textContent=`${ci+1}文字目`;
-        const zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
-        zBtn.onclick=((_c,_r)=>()=>openZoom(_c,`${k.answer} ${_r+1}回目`,true))(c,r);
-        wrap.appendChild(c); wrap.appendChild(lbl); wrap.appendChild(zBtn);
-        boxes.appendChild(wrap);
-        // ★ setup は後でrAFで行う
-        pendingSetup.push(c);
-        canvases.push(c);
+
+      var boxes=rd.querySelector('.review-boxes'), fgList=[];
+      chars.forEach(function(ch,ci){
+        var reading=readings[ci]||'';
+        var set=document.createElement('div'); set.className='review-char-set';
+        var modelChar=document.createElement('div'); modelChar.className='review-model-char'; modelChar.textContent=ch;
+        var kp=makeKanjiPair();
+        var zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
+        (function(fg,r2,rd2){zBtn.onclick=function(){openZoom(fg,reading||readings.join(''));};})(kp.fg,r,rd);
+        set.appendChild(modelChar); set.appendChild(kp.pair); set.appendChild(zBtn);
+        boxes.appendChild(set); fgList.push(kp.fg);
       });
-      rd.querySelector('.review-erase-btn').onclick=()=>canvases.forEach(c=>clearCanvas(c,true));
+      (function(fgs){rd.querySelector('.review-erase-btn').onclick=function(){fgs.forEach(function(fg){clearFg(fg);});};})(fgList);
     }
   });
-
-  // ★ レイアウト確定後にsetupCanvas（2フレーム待つ）
-  requestAnimationFrame(()=>{
-    requestAnimationFrame(()=>{
-      pendingSetup.forEach(c=>setupCanvas(c,{guides:true}));
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
-  });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ===== 復習終了 =====
 function endReview(){
   document.getElementById('reviewSection').style.display='none';
   document.getElementById('testSection').style.display='';
@@ -714,13 +732,13 @@ function endReview(){
 
 // ===== 生成 =====
 function generate(){
-  const dateStr=document.getElementById('dateInput').value||today();
+  var dateStr=document.getElementById('dateInput').value||today();
   document.getElementById('dateInput').value=dateStr;
-  const [y,m,d]=dateStr.split('-');
-  document.getElementById('dispDate').textContent=`${y}年${m}月${d}日`;
-  const rand=seededRand(getDateSeed(dateStr));
+  var parts=dateStr.split('-');
+  document.getElementById('dispDate').textContent=parts[0]+'年'+parts[1]+'月'+parts[2]+'日';
+  var rand=seededRand(getDateSeed(dateStr));
   renderCalc(generateCalcProblems(rand));
-  renderKanji(shuffle([...kanjiDB],rand).slice(0,10));
+  renderKanji(shuffle(kanjiDB.slice(),rand).slice(0,10));
   document.getElementById('cheerMsg').textContent=cheers[Math.floor(rand()*cheers.length)];
   answersOn=false;
   document.body.classList.remove('show-answers');
@@ -730,13 +748,9 @@ function generate(){
   document.getElementById('reviewBtn').style.display='none';
   document.getElementById('testSection').style.display='';
   document.getElementById('reviewSection').style.display='none';
-  setTool('pen');
-  setColor('#1a3a5c','navy');
+  setTool('pen'); setColor('#1a3a5c','navy');
 }
-
-const cheers=['今日もよくがんばった！🌟','毎日続けるキミはすごい！✨','コツコツが力になる！💪','昨日よりひとつ賢くなった！📖','あきらめないキミが最強！🔥','やればできる！その調子！⭐'];
-
-function today(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 
 document.getElementById('dateInput').value=today();
 generate();
