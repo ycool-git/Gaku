@@ -5,172 +5,148 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>小5 毎日ドリル</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700&display=swap');
-:root{--primary:#1a3a5c;--accent:#e8a020;--green:#3a9e6e;--red:#c0392b;--bg:#f0ece4;--card:#fff;--rule:#d0c8bc;--sub:#777;}
+@import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+:root {
+  --primary:#1a3a5c; --accent:#e8a020; --green:#3a9e6e; --red:#c0392b;
+  --bg:#f0ece4; --card:#fff; --rule:#d0c8bc; --sub:#888;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh;color:#222;}
 
 /* ヘッダー */
-.app-header{background:var(--primary);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3);}
-.app-title{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:1.1rem;flex:1;min-width:80px;}
-.app-header input[type="date"]{padding:6px 8px;border-radius:8px;border:none;font-family:inherit;font-size:.82rem;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;}
+.app-header{background:var(--primary);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3);}
+.app-title{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:1.05rem;flex:1;min-width:100px;}
+.app-header input[type="date"]{padding:6px 8px;border-radius:8px;border:none;font-family:inherit;font-size:.85rem;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;}
 .app-header input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);}
-.hdr-btn{padding:7px 14px;border-radius:10px;border:2px solid rgba(255,255,255,.35);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;white-space:nowrap;}
-.hdr-btn.off{opacity:.5;}
+.ipad-tip{background:rgba(255,255,255,.1);border-radius:8px;padding:6px 12px;font-size:.72rem;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px;width:100%;}
 
 /* ツールバー */
 .toolbar-wrap{background:#edeae4;border-bottom:1px solid var(--rule);padding:8px 16px;}
-.toolbar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.tool-label{font-size:.78rem;color:var(--sub);font-weight:700;flex-shrink:0;}
-.tool-btn{padding:8px 16px;border-radius:20px;border:2px solid var(--rule);font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer;background:#fff;color:#555;transition:all .15s;flex-shrink:0;}
+.toolbar{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tool-label{font-size:.73rem;color:var(--sub);font-weight:700;flex-shrink:0;}
+.tool-btn{padding:6px 14px;border-radius:20px;border:2px solid var(--rule);font-family:inherit;font-weight:700;font-size:.8rem;cursor:pointer;background:#fff;color:#555;transition:all .15s;flex-shrink:0;}
 .tool-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
 .tool-btn.eraser-active{background:#7b5c3a;color:#fff;border-color:#7b5c3a;}
-.color-palette{display:flex;align-items:center;gap:8px;}
-.color-swatch{width:32px;height:32px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:all .15s;box-shadow:0 1px 4px rgba(0,0,0,.25);}
+.color-palette{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.color-swatch{width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:all .15s;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.2);}
 .color-swatch.active{border-color:#333;transform:scale(1.2);}
 .color-swatch.c-navy{background:#1a3a5c;}.color-swatch.c-red{background:#d32f2f;}.color-swatch.c-blue{background:#1565c0;}
-.size-btns{display:flex;align-items:center;gap:6px;}
-.size-btn{width:36px;height:36px;border-radius:50%;border:2px solid var(--rule);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.size-btn.active{border-color:var(--primary);background:#e8f0fc;}
-.sd-s{width:5px;height:5px;border-radius:50%;background:#333;display:block;}
-.sd-m{width:9px;height:9px;border-radius:50%;background:#333;display:block;}
-.sd-l{width:14px;height:14px;border-radius:50%;background:#333;display:block;}
-.pencil-status{font-size:.72rem;color:var(--sub);background:#fff;border-radius:12px;padding:4px 12px;border:1px solid var(--rule);margin-left:auto;}
+.size-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.size-wrap input[type="range"]{width:72px;accent-color:var(--primary);}
+.size-dot{background:var(--primary);border-radius:50%;display:inline-block;transition:all .1s;vertical-align:middle;}
+.pencil-status{font-size:.7rem;color:var(--sub);background:#fff;border-radius:12px;padding:3px 10px;border:1px solid var(--rule);flex-shrink:0;margin-left:auto;}
 
 /* ボタン */
-.btn{padding:9px 18px;border-radius:12px;border:none;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:transform .1s;white-space:nowrap;}
+.btn{padding:7px 14px;border-radius:10px;border:none;font-family:inherit;font-weight:700;font-size:.82rem;cursor:pointer;transition:transform .1s;white-space:nowrap;}
 .btn:active{transform:scale(.95);}
 .btn-gen{background:var(--accent);color:var(--primary);}
 .btn-ans{background:var(--green);color:#fff;}
-.btn-review{background:var(--accent);color:var(--primary);}
-.btn-end{background:var(--primary);color:#fff;}
+.btn-ai{background:#7b52ab;color:#fff;}
+
+/* スクロールボタン（固定） */
+.scroll-btns{position:fixed;right:14px;bottom:80px;z-index:300;display:flex;flex-direction:column;gap:8px;}
+.scroll-btn{width:48px;height:48px;border-radius:50%;background:var(--primary);color:#fff;border:none;font-size:1.3rem;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;opacity:.85;}
+.scroll-btn:active{opacity:1;transform:scale(.95);}
 
 /* タブ */
-.tabs{display:flex;max-width:900px;margin:14px auto 0;padding:0 16px;gap:8px;}
-.tab{flex:1;padding:12px;border-radius:12px 12px 0 0;border:none;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;background:rgba(255,255,255,.4);color:var(--sub);transition:background .2s,color .2s;}
+.tabs{display:flex;max-width:860px;margin:14px auto 0;padding:0 16px;gap:8px;}
+.tab{flex:1;padding:11px;border-radius:12px 12px 0 0;border:none;font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;background:rgba(255,255,255,.4);color:var(--sub);transition:background .2s,color .2s;}
 .tab.active{background:var(--card);color:var(--primary);}
 
 /* コンテンツ */
-.content{max-width:900px;margin:0 auto;padding:0 16px 80px;}
+.content{max-width:860px;margin:0 auto;padding:0 16px 80px;}
 .panel{display:none;}.panel.active{display:block;}
-.card{background:var(--card);border-radius:0 0 16px 16px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:16px;}
-.sec-label{font-size:.78rem;font-weight:700;color:#fff;background:var(--primary);display:inline-block;padding:4px 14px;border-radius:20px;margin-bottom:16px;letter-spacing:.05em;}
+.card{background:var(--card);border-radius:0 0 16px 16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:14px;}
+.sec-label{font-size:.72rem;font-weight:700;color:#fff;background:var(--primary);display:inline-block;padding:3px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.05em;}
 .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.88em;line-height:1.15;margin:0 2px;}
 .frac-n{border-bottom:1.5px solid currentColor;padding:0 4px 1px;}.frac-d{padding:1px 4px 0;}
 
-/* 結果バー */
-.result-bar{background:var(--primary);color:#fff;border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
-.cheer-msg{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:1rem;flex:1;text-align:center;}
-.score-disp{font-family:'Kaisei Decol',serif;font-size:1.4rem;}
-.score-disp em{color:var(--accent);font-style:normal;}
-
-/* ○× */
-.sc-o,.sc-x{width:48px;height:48px;border-radius:50%;border:3px solid var(--rule);font-size:1.3rem;font-weight:700;cursor:pointer;background:#f5f5f5;color:#ccc;display:flex;align-items:center;justify-content:center;transition:all .18s;user-select:none;flex-shrink:0;}
-.sc-o.on{background:#e0f4ea;color:var(--green);border-color:var(--green);transform:scale(1.1);}
-.sc-x.on{background:#fde8e8;color:var(--red);border-color:var(--red);transform:scale(1.1);}
-
-/* ===== 計算 2列グリッド ===== */
-.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.calc-card{border:1.5px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
-.calc-top{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fafaf8;border-bottom:1px dashed var(--rule);flex-wrap:nowrap;}
+/* 計算カード */
+.calc-card{border:1.5px solid var(--rule);border-radius:12px;margin-bottom:14px;overflow:hidden;}
+.calc-top{display:flex;align-items:center;gap:10px;padding:12px;background:#fafaf8;border-bottom:1px dashed var(--rule);flex-wrap:wrap;}
 .calc-num-badge{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.calc-question{font-size:1rem;display:flex;align-items:center;gap:4px;flex-shrink:0;}
-.equals{color:var(--sub);margin:0 3px;}
-.ans-canvas-wrap{position:relative;flex:0 0 110px;}
-.ans-canvas{width:110px;height:56px;border:2.5px solid var(--primary);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
-.ans-clear-btn{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:#bbb;border:none;cursor:pointer;font-size:.65rem;color:#fff;display:flex;align-items:center;justify-content:center;z-index:1;}
+.calc-question{font-size:1.05rem;display:flex;align-items:center;gap:4px;flex-shrink:0;}
+.equals{color:var(--sub);margin:0 4px;}
+.ans-canvas-wrap{position:relative;flex-shrink:0;}
+.ans-canvas{width:84px;height:84px;border:2.5px solid var(--primary);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
+.ans-clear-btn{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:#bbb;border:none;cursor:pointer;font-size:.65rem;color:#fff;display:flex;align-items:center;justify-content:center;}
 .ans-clear-btn:active{background:var(--red);}
-.calc-answer-reveal{display:none;font-weight:700;color:var(--red);font-size:.95rem;flex-shrink:0;white-space:nowrap;}
+.calc-answer-reveal{display:none;font-weight:700;color:var(--red);font-size:1rem;flex-shrink:0;}
 body.show-answers .calc-answer-reveal{display:block;}
-.calc-score-row{display:none;align-items:center;justify-content:flex-end;gap:8px;padding:6px 12px;background:#fafaf8;border-bottom:1px dashed var(--rule);}
-body.show-answers .calc-score-row{display:flex;}
-.calc-scratch-wrap{padding:8px 10px;background:#fff;flex:1;}
-.scratch-label{font-size:.68rem;color:var(--sub);margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
+.calc-scratch-wrap{position:relative;padding:8px 10px;background:#fff;}
+.scratch-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.scratch-label{font-size:.68rem;color:var(--sub);}
 .scratch-clear-btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:2px 8px;font-size:.68rem;color:var(--sub);cursor:pointer;}
-.scratch-canvas{width:100%;height:200px;border:1px solid #eee;border-radius:6px;background:#fffef8;touch-action:none;cursor:crosshair;display:block;}
+.scratch-clear-btn:active{background:#eee;}
+.scratch-canvas{width:100%;height:130px;border:1px solid #eee;border-radius:6px;background:#fffef8;touch-action:none;cursor:crosshair;display:block;}
+
+/* 結果バー */
+.result-bar{background:var(--primary);color:#fff;border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.result-date{font-size:.8rem;opacity:.75;}
+.cheer-msg{font-family:'Kaisei Decol',serif;color:var(--accent);font-size:.95rem;flex:1;text-align:center;}
 
 /* ===== 漢字 ===== */
-.kanji-list{display:flex;flex-direction:column;gap:18px;}
-.kanji-item{padding:16px;background:#fafaf8;border-radius:14px;border:2px solid var(--rule);}
-.kanji-score-wrap{display:none;gap:6px;justify-content:flex-end;margin-bottom:8px;}
-body.show-answers .kanji-score-wrap{display:flex;}
-.kanji-num-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.kanji-num{font-size:.82rem;color:#fff;background:var(--primary);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
-.kanji-hint{font-size:.95rem;color:#555;background:#fff3d4;border:1.5px solid var(--accent);border-radius:10px;padding:5px 12px;font-weight:500;display:inline-block;}
-.kanji-sentence{font-size:1.25rem;line-height:2;margin:10px 0 14px;color:#222;}
-.kanji-ruby{font-size:1.4rem;font-weight:700;color:var(--accent);}
-.kanji-boxes{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
-.kanji-char-set{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.kanji-ans-char{font-family:'Noto Serif JP',serif;font-size:5rem;color:var(--primary);width:140px;height:140px;display:none;align-items:center;justify-content:center;background:#fff;border:2px solid var(--accent);border-radius:10px;}
-body.show-answers .kanji-ans-char{display:flex;}
-/* 漢字canvas：2レイヤー */
-.kanji-canvas-pair{position:relative;width:120px;height:120px;border:2px solid var(--rule);border-radius:8px;background:#fff;overflow:hidden;display:block;flex-shrink:0;}
-.kanji-bg-canvas{position:absolute;top:0;left:0;width:120px;height:120px;pointer-events:none;}
-.kanji-fg-canvas{position:absolute;top:0;left:0;width:120px;height:120px;touch-action:none;cursor:crosshair;}
-.kanji-char-label{font-size:.72rem;color:#aaa;}
-/* 漢字エリアのツールバー */
-.kanji-tool-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
-.kanji-tool-btn{padding:6px 14px;border-radius:20px;border:2px solid var(--rule);font-family:inherit;font-size:.8rem;font-weight:700;cursor:pointer;background:#fff;color:#555;transition:all .15s;}
-.kanji-tool-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
-.kanji-tool-btn.eraser{background:#7b5c3a;color:#fff;border-color:#7b5c3a;}
-.zoom-btn{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:.82rem;cursor:pointer;font-family:inherit;font-weight:700;margin-top:4px;}
-.zoom-btn:active{background:#2a5a8c;}
-.kanji-item-footer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px;}
+.kanji-list{display:flex;flex-direction:column;gap:20px;}
+.kanji-item{padding:16px;background:#fafaf8;border-radius:12px;border:1.5px solid var(--rule);}
+.kanji-item-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.kanji-num{font-size:.75rem;color:#fff;background:var(--primary);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+.kanji-reading{font-size:1.3rem;font-weight:700;color:var(--primary);letter-spacing:.1em;}
+.kanji-hint{font-size:.78rem;color:var(--sub);margin-left:auto;}
+.kanji-boxes{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;margin-bottom:10px;}
+.kanji-box-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
+/* ★ 漢字マスを120pxに拡大 */
+.kanji-canvas{width:120px;height:120px;border:2px solid var(--rule);border-radius:8px;background:#fff;touch-action:none;cursor:crosshair;display:block;}
+.kanji-char-label{font-size:.7rem;color:#bbb;}
 
-/* ===== 復習パネル ===== */
-.review-header-bar{background:var(--accent);color:var(--primary);border-radius:14px 14px 0 0;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-.review-header-title{font-family:'Kaisei Decol',serif;font-size:1.05rem;font-weight:700;flex:1;}
-.review-body{background:var(--card);border-radius:0 0 16px 16px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:16px;overflow:hidden;}
-.review-item{padding:18px;border-bottom:2px solid var(--bg);}
-.review-item:last-child{border-bottom:none;}
-.review-reading-big{font-size:1.2rem;font-weight:700;color:var(--primary);margin-bottom:4px;}
-.review-sentence-small{font-size:.88rem;color:var(--sub);margin-bottom:14px;line-height:1.8;}
-.review-rounds{display:flex;flex-direction:column;gap:14px;}
-.review-round{border:1px solid var(--rule);border-radius:10px;padding:12px;}
-.review-round-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.review-round-label{font-size:.82rem;font-weight:700;color:var(--sub);}
-.review-erase-btn{background:none;border:1px solid var(--rule);border-radius:8px;padding:5px 14px;font-size:.78rem;color:var(--sub);cursor:pointer;}
-.review-boxes{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:6px;justify-content:center;}
-.review-char-set{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.review-model-char{font-family:'Noto Serif JP',serif;font-size:5rem;color:var(--primary);width:140px;height:140px;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--accent);border-radius:10px;}
+.kanji-item-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.kanji-answer-area{display:none;align-items:center;gap:8px;}
+body.show-answers .kanji-answer-area{display:flex;}
+.kanji-answer-text{font-family:'Kaisei Decol',serif;font-size:1.8rem;color:var(--red);letter-spacing:6px;}
+.erase-all-btn{background:none;border:1px solid var(--rule);border-radius:8px;padding:5px 12px;font-size:.72rem;color:var(--sub);cursor:pointer;margin-left:auto;}
+.erase-all-btn:active{background:#eee;}
 
-/* ズームモーダル */
-.zoom-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);align-items:center;justify-content:center;}
-.zoom-modal.open{display:flex;}
-.zoom-modal-inner{background:#fff;border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 8px 40px rgba(0,0,0,.4);}
-.zoom-modal-title{font-size:1rem;font-weight:700;color:var(--primary);}
-/* ★ ズームのbg/fgを正しく重ねる */
-.zoom-canvas-pair{position:relative;border:2px solid var(--rule);border-radius:10px;overflow:hidden;background:#fff;}
-.zoom-bg-canvas{position:absolute;top:0;left:0;pointer-events:none;}
-.zoom-fg-canvas{position:relative;display:block;touch-action:none;cursor:crosshair;background:transparent;}
-.zoom-modal-footer{display:flex;gap:10px;}
-.zoom-clear-btn,.zoom-done-btn,.zoom-close-btn{padding:10px 22px;border-radius:10px;border:none;font-weight:700;cursor:pointer;font-family:inherit;}
-.zoom-clear-btn{background:#eee;color:#555;}
-.zoom-done-btn{background:var(--green);color:#fff;}
-.zoom-close-btn{background:var(--primary);color:#fff;}
+/* AI採点結果バッジ */
+.ai-result{display:none;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:.82rem;font-weight:700;}
+.ai-result.correct{display:flex;background:#e0f4ea;color:var(--green);border:1.5px solid var(--green);}
+.ai-result.incorrect{display:flex;background:#fde8e8;color:var(--red);border:1.5px solid var(--red);}
+.ai-result.checking{display:flex;background:#f0f0f0;color:#666;border:1.5px solid #ccc;}
 
-/* 音設定モーダル */
-.sound-modal{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);align-items:center;justify-content:center;}
-.sound-modal.open{display:flex;}
-.sound-modal-inner{background:#fff;border-radius:18px;padding:24px;width:90%;max-width:440px;box-shadow:0 8px 40px rgba(0,0,0,.3);}
-.sound-row{margin-bottom:18px;}
-.sound-row-title{font-size:.88rem;font-weight:700;color:#444;margin-bottom:8px;}
-.sound-file-label{display:inline-flex;align-items:center;gap:10px;cursor:pointer;padding:8px 14px;border:2px solid var(--rule);border-radius:10px;background:#fafaf8;}
-.sound-file-label span.btn-txt{background:var(--primary);color:#fff;padding:5px 12px;border-radius:7px;font-size:.8rem;font-weight:700;}
-.sound-file-name{font-size:.78rem;color:#888;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+/* AI採点全体バー */
+.ai-score-bar{background:var(--card);border:2px solid var(--primary);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+.ai-score-title{font-weight:700;color:var(--primary);font-size:.9rem;}
+.ai-score-val{font-family:'Kaisei Decol',serif;font-size:1.5rem;color:var(--primary);}
+.ai-score-val em{color:var(--accent);font-style:normal;}
+
+/* 間違い直しパネル */
+.retry-panel{background:var(--card);border-radius:14px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:14px;border:2px solid var(--accent);}
+.retry-title{font-family:'Kaisei Decol',serif;font-size:1.1rem;color:var(--primary);margin-bottom:4px;}
+.retry-sub{font-size:.78rem;color:var(--sub);margin-bottom:16px;}
+.retry-item{border-bottom:1px solid var(--rule);padding-bottom:16px;margin-bottom:16px;}
+.retry-item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+.retry-reading{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:8px;letter-spacing:.05em;}
+.retry-boxes{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.retry-round-label{font-size:.72rem;color:var(--sub);margin-bottom:4px;}
+.retry-erase-btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:3px 10px;font-size:.7rem;color:var(--sub);cursor:pointer;}
+.retry-check-btn{padding:6px 16px;border-radius:20px;border:none;background:var(--accent);color:var(--primary);font-weight:700;font-size:.8rem;cursor:pointer;margin-top:6px;}
+
+/* ローディングスピナー */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid #ccc;border-top-color:var(--primary);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
 
+<!-- ヘッダー -->
 <div class="app-header">
   <div class="app-title">📚 小5 毎日ドリル</div>
   <input type="date" id="dateInput">
   <button class="btn btn-gen" onclick="generate()">🎲 新しい問題</button>
   <button class="btn btn-ans" id="ansBtn" onclick="toggleAnswers()">✅ 答えを見る</button>
-  <button class="hdr-btn" id="muteBtn" onclick="toggleMute()">音ON</button>
-  <button class="hdr-btn" onclick="openSoundModal()">🎵 音設定</button>
+  <button class="btn btn-ai"  id="aiBtn"  onclick="runAiScore()" style="display:none">🤖 AI採点</button>
+  <div class="ipad-tip">💡 <b>iPad：</b>AirDrop → Safari → ホーム画面に追加。Apple Pencilサイドボタン＝ペン↔消しゴム切替。</div>
 </div>
 
+<!-- ツールバー -->
 <div class="toolbar-wrap">
   <div class="toolbar">
     <span class="tool-label">ツール：</span>
@@ -178,580 +154,422 @@ body.show-answers .kanji-ans-char{display:flex;}
     <button class="tool-btn"        id="btnEraser" onclick="setTool('eraser')">🧹 消しゴム</button>
     <span class="tool-label" style="margin-left:4px">色：</span>
     <div class="color-palette">
-      <div class="color-swatch c-navy active" id="sw-navy" onclick="setColor('#1a3a5c','navy')"></div>
-      <div class="color-swatch c-red"         id="sw-red"  onclick="setColor('#d32f2f','red')"></div>
-      <div class="color-swatch c-blue"        id="sw-blue" onclick="setColor('#1565c0','blue')"></div>
+      <div class="color-swatch c-navy active" id="sw-navy" onclick="setColor('#1a3a5c','navy')" title="紺"></div>
+      <div class="color-swatch c-red"         id="sw-red"  onclick="setColor('#d32f2f','red')"  title="赤"></div>
+      <div class="color-swatch c-blue"        id="sw-blue" onclick="setColor('#1565c0','blue')" title="青"></div>
     </div>
-    <span class="tool-label" style="margin-left:4px">太さ：</span>
-    <div class="size-btns">
-      <button class="size-btn"        id="sz-s" onclick="setPenSize('s')"><span class="sd-s"></span></button>
-      <button class="size-btn active" id="sz-m" onclick="setPenSize('m')"><span class="sd-m"></span></button>
-      <button class="size-btn"        id="sz-l" onclick="setPenSize('l')"><span class="sd-l"></span></button>
+    <div class="size-wrap" style="margin-left:4px">
+      <span class="tool-label">太さ：</span>
+      <input type="range" id="sizeSlider" min="2" max="18" value="4" oninput="updateSize()">
+      <span class="size-dot" id="sizeDot" style="width:6px;height:6px"></span>
     </div>
     <div class="pencil-status" id="pencilStatus">Apple Pencil: 未検出</div>
   </div>
 </div>
 
+<!-- スクロールボタン -->
+<div class="scroll-btns">
+  <button class="scroll-btn" onclick="scrollPage(-300)" title="上へ">▲</button>
+  <button class="scroll-btn" onclick="scrollPage(300)"  title="下へ">▼</button>
+</div>
+
+<!-- タブ -->
 <div class="tabs">
   <button class="tab active" onclick="switchTab('calc')">🔢 計算（12問）</button>
   <button class="tab"        onclick="switchTab('kanji')">✍️ 漢字（10問）</button>
 </div>
 
 <div class="content">
+
+  <!-- 計算パネル -->
   <div class="panel active" id="panel-calc">
     <div class="card">
-      <div class="sec-label">計算 ― 答えを書いて計算スペースで筆算しよう！🔥</div>
-      <div class="calc-grid" id="calcList"></div>
+      <div class="sec-label">計算 ― 答え欄に書いて、下の枠で筆算しよう</div>
+      <div id="calcList"></div>
     </div>
     <div class="result-bar">
-      <div style="font-size:.82rem;opacity:.75" id="dispDate">―</div>
-      <div class="cheer-msg" id="cheerMsg">「新しい問題」を押してスタート！</div>
-      <div class="score-disp" id="calcScore" style="display:none"></div>
+      <div class="result-date" id="dispDate">―</div>
+      <div class="cheer-msg"   id="cheerMsg">「新しい問題」を押してスタート！</div>
     </div>
   </div>
 
+  <!-- 漢字パネル -->
   <div class="panel" id="panel-kanji">
-    <div id="testSection">
-      <div class="card">
-        <div class="sec-label">漢字 ― 例文の□にあたる漢字を書こう！🌟</div>
-        <div class="kanji-list" id="kanjiList"></div>
-      </div>
-      <div class="result-bar">
-        <div class="cheer-msg" style="font-family:inherit;font-size:.9rem;text-align:left">全部書いたら「✅ 答えを見る」→ ○か×をつけよう！</div>
-        <div class="score-disp" id="kanjiScore" style="display:none"></div>
-        <button class="btn btn-review" id="reviewBtn" style="display:none" onclick="startReview()">🔁 復習する</button>
-      </div>
+    <!-- AI採点スコアバー（採点後に表示） -->
+    <div class="ai-score-bar" id="aiScoreBar" style="display:none">
+      <span class="ai-score-title">🤖 AI採点結果</span>
+      <span class="ai-score-val" id="aiScoreVal">―</span>
+      <button class="btn btn-ai" onclick="startRetry()" id="retryBtn" style="display:none">📝 間違い直しをする</button>
     </div>
-    <div id="reviewSection" style="display:none">
-      <div class="review-header-bar">
-        <div class="review-header-title">🔁 まちがえた漢字を3回ずつ書いてマスターしよう💪</div>
-        <button class="btn btn-end" onclick="endReview()">✅ 復習おわり！テストにもどる</button>
-      </div>
-      <div class="review-body"><div id="reviewList"></div></div>
-    </div>
-  </div>
-</div>
 
-<!-- 音設定モーダル -->
-<div class="sound-modal" id="soundModal">
-  <div class="sound-modal-inner">
-    <div style="font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:20px;">🎵 音の設定</div>
-    <div class="sound-row">
-      <div class="sound-row-title">○ 正解の音（mp3/wav）</div>
-      <label class="sound-file-label">
-        <span class="btn-txt">ファイルを選択</span>
-        <span class="sound-file-name" id="fname-correct">未設定（デフォルト：ピンポン）</span>
-        <input type="file" accept="audio/mpeg,audio/wav,audio/mp3,audio/ogg,audio/*" style="display:none" onchange="loadSound(this,'correct')">
-      </label>
+    <div class="card">
+      <div class="sec-label">漢字 ― マスに指で書こう</div>
+      <div class="kanji-list" id="kanjiList"></div>
     </div>
-    <div class="sound-row">
-      <div class="sound-row-title">× 不正解の音（mp3/wav）</div>
-      <label class="sound-file-label">
-        <span class="btn-txt">ファイルを選択</span>
-        <span class="sound-file-name" id="fname-wrong">未設定（デフォルト：チャイム）</span>
-        <input type="file" accept="audio/mpeg,audio/wav,audio/mp3,audio/ogg,audio/*" style="display:none" onchange="loadSound(this,'wrong')">
-      </label>
-    </div>
-    <button onclick="closeSoundModal()" style="width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:6px;">✅ 閉じる</button>
-  </div>
-</div>
 
-<!-- ズームモーダル -->
-<div class="zoom-modal" id="zoomModal">
-  <div class="zoom-modal-inner" id="zoomInner">
-    <div class="zoom-modal-title" id="zoomTitle">🔍 拡大して書く</div>
-    <!-- ★ bgが下・fgが上で重なる -->
-    <div class="zoom-canvas-pair" id="zoomPair">
-      <canvas class="zoom-bg-canvas" id="zoomBg"></canvas>
-      <canvas class="zoom-fg-canvas" id="zoomFg"></canvas>
+    <!-- 間違い直しパネル（採点後に間違いがあれば表示） -->
+    <div class="retry-panel" id="retryPanel" style="display:none">
+      <div class="retry-title">📝 間違い直し練習</div>
+      <div class="retry-sub">間違えた漢字を3回ずつ練習しよう！</div>
+      <div id="retryList"></div>
     </div>
-    <div class="zoom-modal-footer">
-      <button class="zoom-clear-btn" onclick="zoomClear()">🧹 消す</button>
-      <button class="zoom-done-btn"  onclick="zoomDone()">✅ 完了</button>
-      <button class="zoom-close-btn" onclick="zoomClose()">✕ 閉じる</button>
+
+    <div class="result-bar">
+      <div class="cheer-msg" style="font-family:inherit;font-size:.9rem;text-align:left">
+        書いたら「AI採点」ボタンで採点できます
+      </div>
     </div>
   </div>
+
 </div>
 
 <script>
-'use strict';
-
-// ===== 音声（インポートのみ） =====
-var muted = false;
-var sounds = { write: null, correct: null, wrong: null };
-var writeTimer = null;
-
-function loadSound(input, key) {
-  var file = input.files[0];
-  if (!file) return;
-  var url = URL.createObjectURL(file);
-  sounds[key] = url;
-  document.getElementById('fname-'+key).textContent = file.name;
+// ===== APIキー入力プロンプト =====
+// ファイルを開いたとき1回だけ確認
+let API_KEY = localStorage.getItem('drillApiKey') || '';
+if (!API_KEY) {
+  const k = prompt('AnthropicのAPIキーを入力してください（AI採点に必要です）:\n※入力しなくてもドリルは使えます');
+  if (k && k.trim()) {
+    API_KEY = k.trim();
+    try { localStorage.setItem('drillApiKey', API_KEY); } catch(e){}
+  }
 }
 
-function playSound(key) {
-  if (muted || !sounds[key]) return;
-  try {
-    var a = new Audio(sounds[key]);
-    a.volume = 0.85;
-    a.play().catch(function(){});
-  } catch(e){}
-}
-
-// デフォルト音（Web Audio API）
-var actx = null;
-function getActx(){ if(!actx){ try{ actx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return actx; }
-function tone(f,d,v){ var c=getActx(); if(!c) return; try{ var o=c.createOscillator(),g=c.createGain(); o.frequency.value=f; g.gain.setValueAtTime(v||0.25,c.currentTime); g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d); o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime+d); }catch(e){} }
-
-function playCorrectSound() {
-  if (muted) return;
-  if (sounds.correct) { playSound('correct'); return; }
-  tone(880,0.1,0.28); setTimeout(function(){ tone(1108,0.15,0.28); },90);
-}
-function playWrongSound() {
-  if (muted) return;
-  if (sounds.wrong) { playSound('wrong'); return; }
-  tone(523,0.14,0.22); setTimeout(function(){ tone(659,0.14,0.22); },130); setTimeout(function(){ tone(784,0.2,0.22); },260);
-}
-
-function toggleMute() {
-  muted=!muted;
-  var b=document.getElementById('muteBtn');
-  b.textContent=muted?'音OFF':'音ON'; b.className='hdr-btn'+(muted?' off':'');
-}
-function openSoundModal(){ document.getElementById('soundModal').classList.add('open'); }
-function closeSoundModal(){ document.getElementById('soundModal').classList.remove('open'); }
-document.getElementById('soundModal').addEventListener('pointerdown',function(e){ if(e.target===document.getElementById('soundModal')) closeSoundModal(); });
+// ===== スクロール =====
+function scrollPage(px) { window.scrollBy({ top: px, behavior: 'smooth' }); }
 
 // ===== ツール =====
-var PEN_SIZES={s:4,m:8,l:14};
-var tool='pen', penColor='#1a3a5c', penSize=8, pencilConnected=false;
+let tool='pen', penColor='#1a3a5c', penSize=4, pencilConnected=false;
 function setTool(t){
   tool=t;
-  document.getElementById('btnPen').className    ='tool-btn'+(t==='pen'?    ' active':'');
-  document.getElementById('btnEraser').className ='tool-btn'+(t==='eraser'?' eraser-active':'');
+  document.getElementById('btnPen').className   ='tool-btn'+(t==='pen'?    ' active':'');
+  document.getElementById('btnEraser').className='tool-btn'+(t==='eraser'?' eraser-active':'');
 }
 function setColor(hex,name){
   penColor=hex; if(tool!=='pen') setTool('pen');
-  document.querySelectorAll('.color-swatch').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
   document.getElementById('sw-'+name).classList.add('active');
+  document.getElementById('sizeDot').style.background=hex;
 }
-function setPenSize(sz){
-  penSize=PEN_SIZES[sz];
-  document.querySelectorAll('.size-btn').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('sz-'+sz).classList.add('active');
+function updateSize(){
+  penSize=+document.getElementById('sizeSlider').value;
+  const px=Math.max(4,penSize);
+  Object.assign(document.getElementById('sizeDot').style,{width:px+'px',height:px+'px'});
 }
-document.addEventListener('pointerdown',function(e){
+function toggleTool(){ setTool(tool==='pen'?'eraser':'pen'); }
+
+document.addEventListener('pointerdown',e=>{
   if(e.pointerType==='pen'){
-    if(!pencilConnected){ pencilConnected=true; var el=document.getElementById('pencilStatus'); el.textContent='🍎 Apple Pencil 接続中'; el.style.color='#3a9e6e'; }
-    if(e.button===1){ e.preventDefault(); setTool(tool==='pen'?'eraser':'pen'); }
+    if(!pencilConnected){ pencilConnected=true; const el=document.getElementById('pencilStatus'); el.textContent='🍎 Apple Pencil 接続中'; el.style.color='#3a9e6e'; }
+    if(e.button===1){ e.preventDefault(); toggleTool(); }
   }
 },{passive:false});
 
 // ===== 乱数 =====
-function seededRand(seed){ var s=seed; return function(){ s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/4294967296; }; }
-function getDateSeed(str){ return parseInt(str.split('-').join(''),10); }
+function seededRand(seed){ let s=seed; return ()=>{ s=(s*1664525+1013904223)&0xffffffff; return (s>>>0)/4294967296; }; }
+function getDateSeed(str){ return str.split('-').join('')|0; }
 function ri(min,max,r){ return Math.floor(r()*(max-min+1))+min; }
 function gcd(a,b){ return b===0?a:gcd(b,a%b); }
-function shuffle(arr,r){ var a=arr.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function shuffle(arr,r){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
 // ===== 計算生成 =====
 function generateCalcProblems(rand){
-  var types=shuffle([0,0,1,1,2,2,3,3,4,4,5,6],rand);
-  var gen=[
-    function(){var a=ri(12,99,rand),b=ri(2,9,rand);return{q:a+' × '+b,a:''+a*b};},
-    function(){var b=ri(2,9,rand),a=b*ri(2,15,rand);return{q:a+' ÷ '+b,a:''+a/b};},
-    function(){var a=+(ri(1,9,rand)+'.'+ri(1,9,rand)),b=+(ri(1,9,rand)+'.'+ri(1,9,rand));return{q:a+' ＋ '+b,a:''+((a+b).toFixed(2)*1)};},
-    function(){var b=+(ri(1,8,rand)+'.'+ri(1,9,rand)),big=+(ri((b|0)+1,9,rand)+'.'+ri(0,9,rand)),sm=Math.min(big,b);return{q:Math.max(big,b)+' － '+sm,a:''+(Math.max(big,b)-sm).toFixed(2)*1};},
-    function(){var d=ri(3,9,rand),n1=ri(1,d-1,rand),n2=ri(1,d-1,rand),sum=n1+n2,g=gcd(sum,d);return{q:n1+'/'+d+' ＋ '+n2+'/'+d,a:sum===d?'1':g>1?(sum/g)+'/'+(d/g):sum+'/'+d};},
-    function(){var d=ri(3,9,rand),n1=ri(2,d,rand),n2=ri(1,n1-1,rand),df=n1-n2,g=gcd(df,d);return{q:n1+'/'+d+' － '+n2+'/'+d,a:g>1?(df/g)+'/'+(d/g):df+'/'+d};},
-    function(){var a=ri(4,20,rand),b=ri(3,15,rand);return{q:a+'×'+b+'cm の面積',a:a*b+'cm²'};}
+  const types=shuffle([0,0,1,1,2,2,3,3,4,4,5,6],rand);
+  const gen=[
+    ()=>{ const a=ri(12,99,rand),b=ri(2,9,rand); return {q:`${a} × ${b}`,a:`${a*b}`}; },
+    ()=>{ const b=ri(2,9,rand),a=b*ri(2,15,rand); return {q:`${a} ÷ ${b}`,a:`${a/b}`}; },
+    ()=>{ const a=+(ri(1,9,rand)+'.'+ri(1,9,rand)),b=+(ri(1,9,rand)+'.'+ri(1,9,rand)); return {q:`${a} ＋ ${b}`,a:`${+((a+b).toFixed(2))}`}; },
+    ()=>{ const b=+(ri(1,8,rand)+'.'+ri(1,9,rand)),big=+(ri((b|0)+1,9,rand)+'.'+ri(0,9,rand)),sm=Math.min(big,b); return {q:`${Math.max(big,b)} － ${sm}`,a:`${+((Math.max(big,b)-sm).toFixed(2))}`}; },
+    ()=>{ const d=ri(3,9,rand),n1=ri(1,d-1,rand),n2=ri(1,d-1,rand),sum=n1+n2,g=gcd(sum,d); const ans=sum===d?'1':(g>1?`${sum/g}/${d/g}`:`${sum}/${d}`); return {q:`${n1}/${d} ＋ ${n2}/${d}`,a:ans}; },
+    ()=>{ const d=ri(3,9,rand),n1=ri(2,d,rand),n2=ri(1,n1-1,rand),diff=n1-n2,g=gcd(diff,d); return {q:`${n1}/${d} － ${n2}/${d}`,a:g>1?`${diff/g}/${d/g}`:`${diff}/${d}`}; },
+    ()=>{ const a=ri(4,20,rand),b=ri(3,15,rand); return {q:`${a}×${b}cm の面積`,a:`${a*b}cm²`}; },
   ];
-  return Array.from({length:12},function(_,i){return gen[types[i]%gen.length]();});
+  return Array.from({length:12},(_,i)=>gen[types[i]%gen.length]());
 }
-function fracHtml(s){return String(s).replace(/(\d+)\/(\d+)/g,function(_,n,d){return '<span class="frac"><span class="frac-n">'+n+'</span><span class="frac-d">'+d+'</span></span>';});}
 
 // ===== 漢字DB =====
-var kanjiDB=[
-  {answer:'協力', hint:'🤝 力をあわせること！',           sentence:['みんなで',['きょう','りょく'],'して、大きな山をのぼった。']},
-  {answer:'創造', hint:'✨ ゼロから新しいものを作ること！', sentence:['新しいロボットを',['そう','ぞう'],'して、世界をおどろかせた。']},
-  {answer:'環境', hint:'🌏 生き物をとりまく自然のこと！',  sentence:['地球の',['かん','きょう'],'を守るために、ゴミをへらそう。']},
-  {answer:'正確', hint:'✅ まちがいゼロのようす！',         sentence:['',['せい','かく'],'な答えを出すために、何度も計算しなおした。']},
-  {answer:'冒険', hint:'🗺️ ドキドキする体験！',           sentence:['夏休みに家族で',['ぼう','けん'],'の旅に出かけた。']},
-  {answer:'収穫', hint:'🌾 畑の作物をとり入れること！',    sentence:['農家の人が、秋に米を',['しゅう','かく'],'した。']},
-  {answer:'真剣', hint:'🔥 本気でがんばるようす！',         sentence:['',['しん','けん'],'に取り組んで、テストで100点をとった。']},
-  {answer:'知識', hint:'📚 勉強で得た情報のこと！',         sentence:['図書館でたくさんの',['ち','しき'],'を身につけた。']},
-  {answer:'意見', hint:'💬 自分だけの考え！',              sentence:['自分の',['い','けん'],'をはっきりと発表できた。']},
-  {answer:'自由', hint:'🕊️ 自分の思い通りにできること！',  sentence:['',['じ','ゆう'],'を守るために、自分で決めたルールを大切にしている。']},
-  {answer:'産業', hint:'🏭 ものをつくる仕事全体！',         sentence:['歴史の授業で、江戸時代の',['さん','ぎょう'],'について学んだ。']},
-  {answer:'丁寧', hint:'🌸 細かいところまで気を配ること！', sentence:['先生に',['てい','ねい'],'に教えてもらったので、よく分かった。']},
-  {answer:'感謝', hint:'🙏 ありがとうの気持ち！',           sentence:['',['かん','しゃ'],'の気持ちをこめて、お礼の手紙を書いた。']},
-  {answer:'挑戦', hint:'💪 難しいことに立ち向かうこと！',   sentence:['むずかしい問題に',['ちょう','せん'],'して、最後まであきらめなかった。']},
-  {answer:'勇敢', hint:'🦁 こわいことにも負けないようす！', sentence:['川で',['ゆう','かん'],'な行動をとって、友だちをすくった。']},
-  {answer:'成長', hint:'🌱 体や心が大きくなること！',        sentence:['植物が',['せい','ちょう'],'するために、水や太陽の光が必要だ。']},
-  {answer:'説明', hint:'📢 相手にわかるよう話すこと！',     sentence:['先生が実験の方法を',['せつ','めい'],'してくれた。']},
-  {answer:'発見', hint:'🔍 新しいものを見つけること！',     sentence:['科学者が新しい星を',['はっ','けん'],'した。']},
-  {answer:'将来', hint:'🌈 これから先の自分の夢！',          sentence:['',['しょう','らい'],'の夢に向かって、毎日練習を続けた。']},
-  {answer:'歴史', hint:'📜 むかしのできごとの記録！',       sentence:['日本の',['れき','し'],'について、図書館で調べた。']},
-  {answer:'大切', hint:'💎 とても大事に思うようす！',       sentence:['命よりも',['たい','せつ'],'なものはない、と先生が教えてくれた。']},
-  {answer:'必要', hint:'💡 どうしても必要なこと！',          sentence:['夢をかなえるためには、努力が',['ひつ','よう'],'だ。']},
-  {answer:'昨日', hint:'⏰ 今日の1日前！',                 sentence:['',['きの','う'],'のできごとをふり返って、日記を書いた。']},
-  {answer:'協力', hint:'🤝 力をあわせること！',             sentence:['クラスみんなで',['きょう','りょく'],'して、文化祭の準備をした。']},
-  {answer:'真剣', hint:'🔥 本気でがんばるようす！',          sentence:['サッカーの試合に',['しん','けん'],'に取り組んだ。']}
+const kanjiDB=[
+  {reading:'きのう',hint:'昨日のこと',answer:'昨日'},
+  {reading:'みらい',hint:'まだ来ていない時間',answer:'未来'},
+  {reading:'せいかく',hint:'まちがいがないようす',answer:'正確'},
+  {reading:'ぼうけん',hint:'危険をおかす旅や体験',answer:'冒険'},
+  {reading:'ひつよう',hint:'どうしてもいること',answer:'必要'},
+  {reading:'さんぎょう',hint:'製品をつくる仕事全体',answer:'産業'},
+  {reading:'しゅうかく',hint:'田畑の作物をとり入れること',answer:'収穫'},
+  {reading:'かんきょう',hint:'生き物をとりまく自然や社会',answer:'環境'},
+  {reading:'きょうりょく',hint:'みんなで力をあわせること',answer:'協力'},
+  {reading:'じゆう',hint:'自分の思い通りにできること',answer:'自由'},
+  {reading:'いけん',hint:'あるテーマへの自分の考え',answer:'意見'},
+  {reading:'れきし',hint:'むかしから今までのできごとの記録',answer:'歴史'},
+  {reading:'たいせつ',hint:'とても大事に思うようす',answer:'大切'},
+  {reading:'けいさん',hint:'数や式をとく作業',answer:'計算'},
+  {reading:'しょうらい',hint:'これから先のこと・自分の夢',answer:'将来'},
+  {reading:'ちしき',hint:'勉強や経験で得た情報',answer:'知識'},
+  {reading:'しんけん',hint:'本気で取り組むようす',answer:'真剣'},
+  {reading:'ていねい',hint:'細かいところまで気を配るようす',answer:'丁寧'},
+  {reading:'はっけん',hint:'新しいものを見つけること',answer:'発見'},
+  {reading:'せつめい',hint:'相手にわかるように話すこと',answer:'説明'},
+  {reading:'そうぞう',hint:'新しいものをゼロから作ること',answer:'創造'},
+  {reading:'かんしゃ',hint:'ありがとうという気持ち',answer:'感謝'},
+  {reading:'ちょうせん',hint:'難しいことに立ち向かうこと',answer:'挑戦'},
+  {reading:'ゆうかん',hint:'こわいことにも負けないようす',answer:'勇敢'},
+  {reading:'せいちょう',hint:'体や心が大きくなること',answer:'成長'},
 ];
-var cheers=['今日もよくがんばった！🌟','毎日続けるキミはすごい！✨','コツコツが力になる！💪','昨日よりひとつ賢くなった！📖','あきらめないキミが最強！🔥','やればできる！その調子！⭐'];
+const cheers=['今日もよくがんばった！🌟','毎日続けるキミはすごい！✨','コツコツが力になる！💪','昨日よりひとつ賢くなった！📖','あきらめないキミが最強！🔥','やればできる！その調子！⭐'];
 
-function buildSentenceHtml(k){
-  var h='';
-  k.sentence.forEach(function(p){ h+=Array.isArray(p)?'<span class="kanji-ruby">'+p.join('')+'</span>':p; });
-  return h;
-}
-function buildSentenceText(k){ return k.sentence.map(function(p){return Array.isArray(p)?k.answer:p;}).join(''); }
-// ★ ズームタイトル用：ふりがなのみ抽出
-function buildReadingFromSentence(k){
-  var r=[];
-  k.sentence.forEach(function(p){ if(Array.isArray(p)) r=r.concat(p); });
-  return r.join('');
-}
+function fracHtml(s){ return String(s).replace(/(\d+)\/(\d+)/g,(_,n,d)=>`<span class="frac"><span class="frac-n">${n}</span><span class="frac-d">${d}</span></span>`); }
 
 // ===== タブ =====
 function switchTab(name){
-  document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',['calc','kanji'][i]===name);});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+name);});
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['calc','kanji'][i]===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===`panel-${name}`));
 }
 
 // ===== 答え表示 =====
-var answersOn=false;
+let answersOn=false;
 function toggleAnswers(){
   answersOn=!answersOn;
   document.body.classList.toggle('show-answers',answersOn);
   document.getElementById('ansBtn').textContent=answersOn?'🙈 答えを隠す':'✅ 答えを見る';
+  document.getElementById('aiBtn').style.display=answersOn?'none':'';
 }
 
-// ===== 採点 =====
-var calcScores=[], kanjiScores=[];
-function markCalc(i,val){
-  calcScores[i]=calcScores[i]===val?null:val;
-  document.getElementById('co-o-'+i).className='sc-o'+(calcScores[i]==='o'?' on':'');
-  document.getElementById('co-x-'+i).className='sc-x'+(calcScores[i]==='x'?' on':'');
-  if(calcScores[i]==='o')playCorrectSound(); else if(calcScores[i]==='x')playWrongSound();
-  var c=calcScores.filter(function(v){return v==='o';}).length,a=calcScores.filter(function(v){return v!==null;}).length;
-  if(a>0){var el=document.getElementById('calcScore');el.style.display='';el.innerHTML='計算 <em>'+c+'</em>/12';}
-}
-function markKanji(i,val){
-  kanjiScores[i]=kanjiScores[i]===val?null:val;
-  document.getElementById('ko-o-'+i).className='sc-o'+(kanjiScores[i]==='o'?' on':'');
-  document.getElementById('ko-x-'+i).className='sc-x'+(kanjiScores[i]==='x'?' on':'');
-  if(kanjiScores[i]==='o')playCorrectSound(); else if(kanjiScores[i]==='x')playWrongSound();
-  var c=kanjiScores.filter(function(v){return v==='o';}).length,a=kanjiScores.filter(function(v){return v!==null;}).length;
-  if(a>0){var el=document.getElementById('kanjiScore');el.style.display='';el.innerHTML='漢字 <em>'+c+'</em>/10';}
-  var wrongs=kanjiScores.map(function(v,i){return v==='x'?i:-1;}).filter(function(i){return i>=0;});
-  document.getElementById('reviewBtn').style.display=wrongs.length>0?'':'none';
-}
-
-// ===== キャンバス（補助線レイヤー分離）=====
-function drawGuidesOn(bg){
-  var ctx=bg.getContext('2d'),w=bg.width,h=bg.height;
-  ctx.clearRect(0,0,w,h);
-  ctx.save(); ctx.strokeStyle='#ccc'; ctx.lineWidth=Math.max(1,w/100); ctx.setLineDash([5,5]);
-  ctx.beginPath();ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+// ===== キャンバス =====
+function drawGuides(canvas){
+  const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+  ctx.save(); ctx.strokeStyle='#ddd'; ctx.lineWidth=1.5; ctx.setLineDash([6,6]);
+  ctx.beginPath(); ctx.moveTo(w/2,0); ctx.lineTo(w/2,h); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,h/2); ctx.lineTo(w,h/2); ctx.stroke();
   ctx.setLineDash([]); ctx.restore();
 }
 
-function setupCanvas(fg, opts){
-  var ctx=fg.getContext('2d');
+function setupCanvas(canvas,opts){
+  const ctx=canvas.getContext('2d');
   ctx.lineCap='round'; ctx.lineJoin='round';
-  fg.style.touchAction='none';
-  var drawing=false, last=null;
-  var penOnly=opts&&opts.penOnly;
-
-  function getPos(e){
-    var r=fg.getBoundingClientRect();
-    return {x:(e.clientX-r.left)*(fg.width/r.width),y:(e.clientY-r.top)*(fg.height/r.height)};
-  }
-  function onDown(e){
-    if(e.isPrimary===false) return;
-    if(penOnly&&e.pointerType!=='pen') return;
-    e.preventDefault(); e.stopPropagation();
-    if(fg.setPointerCapture) fg.setPointerCapture(e.pointerId);
-    drawing=true; last=getPos(e);
-  }
-  function onMove(e){
-    if(!drawing||e.isPrimary===false) return;
-    if(penOnly&&e.pointerType!=='pen') return;
-    e.preventDefault(); e.stopPropagation();
-    var p=getPos(e); ctx.save();
-    if(tool==='eraser'){
-      ctx.globalCompositeOperation='destination-out'; ctx.strokeStyle='rgba(0,0,0,1)'; ctx.lineWidth=penSize*4;
-    } else {
-      ctx.globalCompositeOperation='source-over'; ctx.strokeStyle=penColor;
-      ctx.lineWidth=penSize*((e.pressure>0)?e.pressure+0.5:1);
-    }
-    ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.restore();
-    last=p;
-  }
-  function onUp(e){e.preventDefault();drawing=false;last=null;}
-  fg.addEventListener('pointerdown',onDown,{passive:false});
-  fg.addEventListener('pointermove',onMove,{passive:false});
-  fg.addEventListener('pointerup',onUp,{passive:false});
-  fg.addEventListener('pointercancel',onUp,{passive:false});
-  fg.addEventListener('touchstart',function(e){if(e.touches.length===1)e.preventDefault();},{passive:false});
-  fg.addEventListener('touchmove',function(e){if(e.touches.length===1)e.preventDefault();},{passive:false});
+  if(opts&&opts.guides) drawGuides(canvas);
+  canvas.style.touchAction='none';
+  let drawing=false,last=null;
+  function getPos(e){ const r=canvas.getBoundingClientRect(); return {x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)}; }
+  function onDown(e){ if(e.isPrimary===false) return; e.preventDefault(); e.stopPropagation(); canvas.setPointerCapture(e.pointerId); drawing=true; last=getPos(e); }
+  function onMove(e){ if(!drawing||e.isPrimary===false) return; e.preventDefault(); e.stopPropagation(); const p=getPos(e); ctx.save(); if(tool==='eraser'){ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='rgba(0,0,0,1)';ctx.lineWidth=penSize*4;}else{ctx.globalCompositeOperation='source-over';ctx.strokeStyle=penColor;const pr=(e.pressure>0)?e.pressure:0.5;ctx.lineWidth=penSize*(0.5+pr);} ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.restore(); if(opts&&opts.guides&&tool==='eraser') drawGuides(canvas); last=p; }
+  function onUp(e){ e.preventDefault(); drawing=false; last=null; }
+  canvas.addEventListener('pointerdown',onDown,{passive:false});
+  canvas.addEventListener('pointermove',onMove,{passive:false});
+  canvas.addEventListener('pointerup',onUp,{passive:false});
+  canvas.addEventListener('pointercancel',onUp,{passive:false});
+  canvas.addEventListener('touchstart',e=>{ if(e.touches.length===1) e.preventDefault(); },{passive:false});
+  canvas.addEventListener('touchmove',e=>{ if(e.touches.length===1) e.preventDefault(); },{passive:false});
 }
 
-function clearFg(fg){fg.getContext('2d').clearRect(0,0,fg.width,fg.height);}
+function clearCanvas(c,guides){ c.getContext('2d').clearRect(0,0,c.width,c.height); if(guides) drawGuides(c); }
 
-// 漢字用2レイヤーCanvas生成（ペンのみ）
-function makeKanjiPair(){
-  var pair=document.createElement('div'); pair.className='kanji-canvas-pair';
-  var bg=document.createElement('canvas'); bg.className='kanji-bg-canvas'; bg.width=240; bg.height=240;
-  var fg=document.createElement('canvas'); fg.className='kanji-fg-canvas'; fg.width=240; fg.height=240;
-  pair.appendChild(bg); pair.appendChild(fg);
-  drawGuidesOn(bg);
-  setupCanvas(fg,{penOnly:true});
-  return {pair:pair,fg:fg,bg:bg};
+function canvasToBase64(canvas){
+  // 白背景を合成してJPEG
+  const tmp=document.createElement('canvas');
+  tmp.width=canvas.width; tmp.height=canvas.height;
+  const ctx=tmp.getContext('2d');
+  ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,tmp.width,tmp.height);
+  ctx.drawImage(canvas,0,0);
+  return tmp.toDataURL('image/jpeg',0.85).split(',')[1];
 }
-
-// ===== ズーム（★補助線をbgに確実に表示）=====
-var zoomSrcFg=null;
-function openZoom(fg, reading){
-  zoomSrcFg=fg;
-  // ★ タイトルはふりがなのみ（漢字非表示）
-  document.getElementById('zoomTitle').textContent='🔍 '+reading;
-  var sz=Math.min(window.innerWidth-80,window.innerHeight-200,420);
-  sz=Math.floor(sz);
-  var bg=document.getElementById('zoomBg');
-  var zfg=document.getElementById('zoomFg');
-  var pair=document.getElementById('zoomPair');
-  // ★ サイズをpxで明示的に設定
-  bg.width=sz; bg.height=sz;
-  bg.style.width=sz+'px'; bg.style.height=sz+'px';
-  bg.style.position='absolute'; bg.style.top='0'; bg.style.left='0';
-  zfg.width=sz; zfg.height=sz;
-  zfg.style.width=sz+'px'; zfg.style.height=sz+'px';
-  zfg.style.position='relative'; zfg.style.display='block'; zfg.style.background='transparent';
-  pair.style.width=sz+'px'; pair.style.height=sz+'px';
-  // ★ bgに補助線を描画（必ず先に）
-  drawGuidesOn(bg);
-  // fgに既存の手書きをコピー
-  var ctx=zfg.getContext('2d');
-  ctx.clearRect(0,0,sz,sz);
-  ctx.drawImage(fg,0,0,sz,sz);
-  document.getElementById('zoomModal').classList.add('open');
-  setupCanvas(zfg,{penOnly:true});
-}
-function zoomDone(){
-  if(zoomSrcFg){
-    var zfg=document.getElementById('zoomFg');
-    var ctx=zoomSrcFg.getContext('2d');
-    ctx.clearRect(0,0,zoomSrcFg.width,zoomSrcFg.height);
-    ctx.drawImage(zfg,0,0,zoomSrcFg.width,zoomSrcFg.height);
-  }
-  zoomClose();
-}
-function zoomClear(){
-  var zfg=document.getElementById('zoomFg');
-  clearFg(zfg);
-  // ★ 消したあとbgの補助線を再描画
-  drawGuidesOn(document.getElementById('zoomBg'));
-}
-function zoomClose(){document.getElementById('zoomModal').classList.remove('open');zoomSrcFg=null;}
-document.getElementById('zoomModal').addEventListener('pointerdown',function(e){if(e.target===document.getElementById('zoomModal'))zoomClose();});
-document.getElementById('zoomInner').addEventListener('pointerdown',function(e){e.stopPropagation();});
 
 // ===== 計算レンダリング =====
-var currentCalc=[];
 function renderCalc(problems){
-  currentCalc=problems; calcScores=new Array(12).fill(null);
-  var list=document.getElementById('calcList'); list.innerHTML='';
-  problems.forEach(function(p,i){
-    var card=document.createElement('div'); card.className='calc-card';
-    card.innerHTML=
-      '<div class="calc-top">'+
-        '<div class="calc-num-badge">'+(i+1)+'</div>'+
-        '<div class="calc-question">'+fracHtml(p.q)+'<span class="equals">＝</span></div>'+
-        '<div class="ans-canvas-wrap">'+
-          '<canvas class="ans-canvas" width="220" height="112"></canvas>'+
-          '<button class="ans-clear-btn">✕</button>'+
-        '</div>'+
-        '<div class="calc-answer-reveal">'+fracHtml(p.a)+'</div>'+
-      '</div>'+
-      '<div class="calc-score-row">'+
-        '<button class="sc-o" id="co-o-'+i+'" onclick="markCalc('+i+',\'o\')">○</button>'+
-        '<button class="sc-x" id="co-x-'+i+'" onclick="markCalc('+i+',\'x\')">×</button>'+
-      '</div>'+
-      '<div class="calc-scratch-wrap">'+
-        '<div class="scratch-label"><span>📝 計算スペース</span><button class="scratch-clear-btn">消す</button></div>'+
-        '<canvas class="scratch-canvas" width="600" height="400"></canvas>'+
-      '</div>';
+  const list=document.getElementById('calcList'); list.innerHTML='';
+  problems.forEach((p,i)=>{
+    const card=document.createElement('div'); card.className='calc-card';
+    card.innerHTML=`
+      <div class="calc-top">
+        <div class="calc-num-badge">${i+1}</div>
+        <div class="calc-question">${fracHtml(p.q)}<span class="equals">＝</span></div>
+        <div class="ans-canvas-wrap">
+          <canvas class="ans-canvas" width="168" height="168"></canvas>
+          <button class="ans-clear-btn" title="消す">✕</button>
+        </div>
+        <div class="calc-answer-reveal">${fracHtml(p.a)}</div>
+      </div>
+      <div class="calc-scratch-wrap">
+        <div class="scratch-header"><span class="scratch-label">📝 筆算スペース</span><button class="scratch-clear-btn">消す</button></div>
+        <canvas class="scratch-canvas" width="800" height="260"></canvas>
+      </div>`;
     list.appendChild(card);
-    var ac=card.querySelector('.ans-canvas');
-    var sc=card.querySelector('.scratch-canvas');
-    setupCanvas(ac,{});
-    setupCanvas(sc,{penOnly:true});
-    card.querySelector('.ans-clear-btn').onclick=function(){clearFg(ac);};
-    card.querySelector('.scratch-clear-btn').onclick=function(){clearFg(sc);};
+    const ac=card.querySelector('.ans-canvas'),sc=card.querySelector('.scratch-canvas');
+    setupCanvas(ac); setupCanvas(sc);
+    card.querySelector('.ans-clear-btn').onclick=()=>clearCanvas(ac,false);
+    card.querySelector('.scratch-clear-btn').onclick=()=>clearCanvas(sc,false);
   });
 }
 
 // ===== 漢字レンダリング =====
-var currentKanji=[];
+// 現在の漢字問題リストを保持（AI採点用）
+let currentKanji=[];
+
 function renderKanji(picked){
-  currentKanji=picked; kanjiScores=new Array(10).fill(null);
-  var list=document.getElementById('kanjiList'); list.innerHTML='';
-  picked.forEach(function(k,i){
-    var chars=k.answer.split('');
-    // ★ ズームタイトル用ふりがな（文字ごとに対応）
-    var readings=[];
-    k.sentence.forEach(function(p){if(Array.isArray(p))readings=readings.concat(p);});
+  currentKanji=picked;
+  const list=document.getElementById('kanjiList'); list.innerHTML='';
+  picked.forEach((k,i)=>{
+    const chars=[...k.answer];
+    const boxesHtml=chars.map((_,ci)=>`
+      <div class="kanji-box-wrap">
+        <canvas class="kanji-canvas" width="240" height="240"></canvas>
+        <div class="kanji-char-label">${ci+1}文字目</div>
+      </div>`).join('');
 
-    var item=document.createElement('div'); item.className='kanji-item';
-    item.innerHTML=
-      '<div class="kanji-score-wrap">'+
-        '<button class="sc-o" id="ko-o-'+i+'" onclick="markKanji('+i+',\'o\')">○</button>'+
-        '<button class="sc-x" id="ko-x-'+i+'" onclick="markKanji('+i+',\'x\')">×</button>'+
-      '</div>'+
-      '<div class="kanji-num-row">'+
-        '<div class="kanji-num">'+(i+1)+'</div>'+
-        '<div class="kanji-hint">'+k.hint+'</div>'+
-      '</div>'+
-      '<div class="kanji-sentence">'+buildSentenceHtml(k)+'</div>'+
-      '<div class="kanji-boxes"></div>'+
-      '<div class="kanji-item-footer"></div>';
+    const item=document.createElement('div'); item.className='kanji-item';
+    item.innerHTML=`
+      <div class="kanji-item-header">
+        <div class="kanji-num">${i+1}</div>
+        <div class="kanji-reading">${k.reading}</div>
+        <div class="kanji-hint">${k.hint}</div>
+      </div>
+      <div class="kanji-boxes">${boxesHtml}</div>
+      <div class="kanji-item-footer">
+        <div class="kanji-answer-area">
+          <span style="font-size:.8rem;color:var(--sub)">正解：</span>
+          <div class="kanji-answer-text">${k.answer}</div>
+        </div>
+        <div class="ai-result" id="air-${i}"></div>
+        <button class="erase-all-btn">全消し</button>
+      </div>`;
     list.appendChild(item);
-
-    var boxesEl=item.querySelector('.kanji-boxes');
-    var fgList=[];
-    chars.forEach(function(ch,ci){
-      var reading=readings[ci]||'';
-      var set=document.createElement('div'); set.className='kanji-char-set';
-      // 正解（答えを見るまで非表示）
-      var ansChar=document.createElement('div'); ansChar.className='kanji-ans-char'; ansChar.textContent=ch;
-      // 2レイヤーcanvas
-      var kp=makeKanjiPair();
-      // ズームボタン（★タイトルはふりがな）
-      var zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
-      (function(fg,r){zBtn.onclick=function(){openZoom(fg,r);};})(kp.fg, reading||readings.join(''));
-      set.appendChild(ansChar); set.appendChild(kp.pair); set.appendChild(zBtn);
-      boxesEl.appendChild(set);
-      fgList.push(kp.fg);
-    });
-
-    // ★ 消しゴムボタン（全消しではなく消しゴム切替）
-    var footer=item.querySelector('.kanji-item-footer');
-    var eraserBtn=document.createElement('button');
-    eraserBtn.className='kanji-tool-btn'; eraserBtn.textContent='🧹 消しゴム';
-    eraserBtn.style.marginLeft='auto';
-    var eraserOn=false;
-    eraserBtn.onclick=function(){
-      eraserOn=!eraserOn;
-      eraserBtn.className='kanji-tool-btn'+(eraserOn?' eraser':'');
-      eraserBtn.textContent=eraserOn?'✏️ ペンにもどす':'🧹 消しゴム';
-      // fgCanvasのtool一時切替（このアイテム専用）
-      fgList.forEach(function(fg){fg.dataset.eraserOn=eraserOn?'1':'';});
-    };
-    footer.appendChild(eraserBtn);
-
-    // fgのonMoveでdataset.eraserOnを参照するよう上書き
-    fgList.forEach(function(fg){
-      var origSetup=fg._eraseOverride;
-      // 消しゴムonのときだけ消しゴム動作
-      fg.addEventListener('pointermove',function(e){
-        if(fg.dataset.eraserOn==='1' && e.pressure>0){
-          // penの時だけ（penOnly済み）
-          var ctx=fg.getContext('2d');
-          var r=fg.getBoundingClientRect();
-          var x=(e.clientX-r.left)*(fg.width/r.width);
-          var y=(e.clientY-r.top)*(fg.height/r.height);
-          ctx.save();
-          ctx.globalCompositeOperation='destination-out';
-          ctx.beginPath();
-          ctx.arc(x,y,penSize*3,0,Math.PI*2);
-          ctx.fill();
-          ctx.restore();
-        }
-      },{passive:false});
-    });
+    item.querySelectorAll('.kanji-canvas').forEach(c=>setupCanvas(c,{guides:true}));
+    item.querySelector('.erase-all-btn').onclick=()=>item.querySelectorAll('.kanji-canvas').forEach(c=>clearCanvas(c,true));
   });
 }
 
-// ===== 復習 =====
-function startReview(){
-  var wrongs=[]; kanjiScores.forEach(function(v,i){if(v==='x') wrongs.push(i);});
-  if(wrongs.length===0) return;
-  document.getElementById('testSection').style.display='none';
-  document.getElementById('reviewSection').style.display='';
-  var list=document.getElementById('reviewList'); list.innerHTML='';
+// ===== AI採点 =====
+async function runAiScore(){
+  if(!API_KEY){
+    const k=prompt('APIキーを入力してください：');
+    if(!k||!k.trim()){ alert('APIキーが必要です'); return; }
+    API_KEY=k.trim();
+    try{ localStorage.setItem('drillApiKey',API_KEY); }catch(e){}
+  }
 
-  wrongs.forEach(function(idx){
-    var k=currentKanji[idx], chars=k.answer.split('');
-    var readings=[];
-    k.sentence.forEach(function(p){if(Array.isArray(p))readings=readings.concat(p);});
+  const btn=document.getElementById('aiBtn');
+  btn.disabled=true; btn.textContent='🤖 採点中…';
 
-    var item=document.createElement('div'); item.className='review-item';
-    item.innerHTML=
-      '<div class="review-reading-big">「'+k.answer+'」を練習しよう！</div>'+
-      '<div class="review-sentence-small">📖 '+buildSentenceText(k)+'</div>'+
-      '<div class="review-rounds"></div>';
-    list.appendChild(item);
-    var roundsEl=item.querySelector('.review-rounds');
+  const items=document.querySelectorAll('.kanji-item');
+  let correct=0; const wrongIdx=[];
 
-    for(var r=0;r<3;r++){
-      var rd=document.createElement('div'); rd.className='review-round';
-      rd.innerHTML=
-        '<div class="review-round-header">'+
-          '<div class="review-round-label">'+(r+1)+'回目</div>'+
-          '<button class="review-erase-btn">🧹 消す</button>'+
-        '</div>'+
-        '<div class="review-boxes"></div>';
-      roundsEl.appendChild(rd);
+  for(let i=0;i<currentKanji.length;i++){
+    const k=currentKanji[i];
+    const resultEl=document.getElementById(`air-${i}`);
+    resultEl.className='ai-result checking';
+    resultEl.innerHTML=`<span class="spinner"></span> 採点中…`;
 
-      var boxes=rd.querySelector('.review-boxes'), fgList=[];
-      chars.forEach(function(ch,ci){
-        var reading=readings[ci]||'';
-        var set=document.createElement('div'); set.className='review-char-set';
-        var modelChar=document.createElement('div'); modelChar.className='review-model-char'; modelChar.textContent=ch;
-        var kp=makeKanjiPair();
-        var zBtn=document.createElement('button'); zBtn.className='zoom-btn'; zBtn.textContent='🔍 ズーム';
-        (function(fg,r2,rd2){zBtn.onclick=function(){openZoom(fg,reading||readings.join(''));};})(kp.fg,r,rd);
-        set.appendChild(modelChar); set.appendChild(kp.pair); set.appendChild(zBtn);
-        boxes.appendChild(set); fgList.push(kp.fg);
+    // 各文字のキャンバスをまとめて1枚の画像にする
+    const canvases=[...items[i].querySelectorAll('.kanji-canvas')];
+    // 横に並べた合成キャンバスを作成
+    const CELL=240, merged=document.createElement('canvas');
+    merged.width=CELL*canvases.length; merged.height=CELL;
+    const mctx=merged.getContext('2d');
+    mctx.fillStyle='#fff'; mctx.fillRect(0,0,merged.width,merged.height);
+    canvases.forEach((c,ci)=>mctx.drawImage(c,ci*CELL,0));
+    const b64=merged.toDataURL('image/jpeg',0.85).split(',')[1];
+
+    try{
+      const res=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({
+          model:'claude-sonnet-4-20250514',
+          max_tokens:100,
+          messages:[{role:'user',content:[
+            {type:'image',source:{type:'base64',media_type:'image/jpeg',data:b64}},
+            {type:'text',text:`この画像は小学5年生が「${k.reading}」という読みがなに対して漢字を手書きしたものです。正解は「${k.answer}」です。画像に書かれた漢字が正解と一致しているか判定してください。「正解」または「不正解」の一言だけ答えてください。`}
+          ]}]
+        })
       });
-      (function(fgs){rd.querySelector('.review-erase-btn').onclick=function(){fgs.forEach(function(fg){clearFg(fg);});};})(fgList);
+      const data=await res.json();
+      const txt=(data.content&&data.content[0]&&data.content[0].text)||'';
+      const isOk=txt.includes('正解')&&!txt.includes('不正解');
+      if(isOk){ correct++; resultEl.className='ai-result correct'; resultEl.innerHTML='✅ 正解！'; }
+      else { wrongIdx.push(i); resultEl.className='ai-result incorrect'; resultEl.innerHTML=`❌ 不正解 (正解：${k.answer})`; }
+    }catch(err){
+      resultEl.className='ai-result incorrect'; resultEl.innerHTML='⚠️ エラー';
+      console.error(err);
     }
-  });
-  window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // スコア表示
+  const bar=document.getElementById('aiScoreBar'); bar.style.display='flex';
+  document.getElementById('aiScoreVal').innerHTML=`<em>${correct}</em> / ${currentKanji.length} 問正解`;
+  btn.disabled=false; btn.textContent='🤖 AI採点';
+
+  // 間違い直しボタン
+  if(wrongIdx.length>0){
+    const rb=document.getElementById('retryBtn'); rb.style.display='';
+    rb.onclick=()=>startRetry(wrongIdx);
+  }
 }
 
-function endReview(){
-  document.getElementById('reviewSection').style.display='none';
-  document.getElementById('testSection').style.display='';
-  window.scrollTo({top:0,behavior:'smooth'});
+// ===== 間違い直し練習 =====
+function startRetry(wrongIdx){
+  const panel=document.getElementById('retryPanel'); panel.style.display='';
+  const list=document.getElementById('retryList'); list.innerHTML='';
+  panel.scrollIntoView({behavior:'smooth'});
+
+  wrongIdx.forEach(idx=>{
+    const k=currentKanji[idx];
+    const chars=[...k.answer];
+    const ROUNDS=3;
+
+    const item=document.createElement('div'); item.className='retry-item';
+
+    // 3ラウンド分のマスを生成
+    let roundsHtml='';
+    for(let r=0;r<ROUNDS;r++){
+      const boxHtml=chars.map((_,ci)=>`
+        <div class="kanji-box-wrap">
+          <canvas class="kanji-canvas" width="240" height="240" data-round="${r}" data-char="${ci}"></canvas>
+          <div class="kanji-char-label">${ci+1}文字目</div>
+        </div>`).join('');
+      roundsHtml+=`
+        <div class="retry-round-label">${r+1}回目</div>
+        <div class="retry-boxes" id="retry-boxes-${idx}-${r}">${boxHtml}</div>
+        <button class="retry-erase-btn" data-round="${r}">この回を消す</button>`;
+    }
+
+    item.innerHTML=`
+      <div class="retry-reading">「${k.reading}」＝ ？（正解：${k.answer}）</div>
+      ${roundsHtml}`;
+    list.appendChild(item);
+
+    // キャンバスセットアップ
+    item.querySelectorAll('.kanji-canvas').forEach(c=>setupCanvas(c,{guides:true}));
+    // 各回の消すボタン
+    item.querySelectorAll('.retry-erase-btn').forEach(btn=>{
+      const r=+btn.dataset.round;
+      btn.onclick=()=>{
+        item.querySelectorAll(`canvas[data-round="${r}"]`).forEach(c=>clearCanvas(c,true));
+      };
+    });
+  });
 }
 
 // ===== 生成 =====
 function generate(){
-  var dateStr=document.getElementById('dateInput').value||today();
+  const dateStr=document.getElementById('dateInput').value||today();
   document.getElementById('dateInput').value=dateStr;
-  var parts=dateStr.split('-');
-  document.getElementById('dispDate').textContent=parts[0]+'年'+parts[1]+'月'+parts[2]+'日';
-  var rand=seededRand(getDateSeed(dateStr));
+  const [y,m,d]=dateStr.split('-');
+  document.getElementById('dispDate').textContent=`${y}年${m}月${d}日`;
+  const rand=seededRand(getDateSeed(dateStr));
   renderCalc(generateCalcProblems(rand));
-  renderKanji(shuffle(kanjiDB.slice(),rand).slice(0,10));
+  renderKanji(shuffle([...kanjiDB],rand).slice(0,10));
   document.getElementById('cheerMsg').textContent=cheers[Math.floor(rand()*cheers.length)];
   answersOn=false;
   document.body.classList.remove('show-answers');
   document.getElementById('ansBtn').textContent='✅ 答えを見る';
-  document.getElementById('calcScore').style.display='none';
-  document.getElementById('kanjiScore').style.display='none';
-  document.getElementById('reviewBtn').style.display='none';
-  document.getElementById('testSection').style.display='';
-  document.getElementById('reviewSection').style.display='none';
+  document.getElementById('aiBtn').style.display='';
+  document.getElementById('aiScoreBar').style.display='none';
+  document.getElementById('retryPanel').style.display='none';
   setTool('pen'); setColor('#1a3a5c','navy');
 }
-function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 
+function today(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+
+updateSize();
 document.getElementById('dateInput').value=today();
 generate();
 </script>
